@@ -19,7 +19,7 @@ public class PointTest {
     public void whenPoint0022Coordx1y1x2y2ThenDistance2dot8284271247461903() {
         Point a = new Point(0, 0);
         Point b = new Point(2, 2);
-        double expected = 2.8284271247461903;
+        double expected = 2.83;
         double out = a.distance(b);
         Assert.assertEquals(expected, out, 0.01);
     }
@@ -28,7 +28,7 @@ public class PointTest {
     public void whenPointMin2Min2Plus2Plus2Coordx1y1x2y2ThenDistance5dot656854249492381() {
         Point a = new Point(-2, -2);
         Point b = new Point(2, 2);
-        double expected = 5.656854249492381;
+        double expected = 5.66;
         double out = a.distance(b);
         Assert.assertEquals(expected, out, 0.01);
     }
@@ -46,7 +46,7 @@ public class PointTest {
     public void when3DCoord2ThenDistance2dot8284271247461903() {
         Point a = new Point(0, 0, 0);
         Point b = new Point(2, 2, 0);
-        double expected = 2.8284271247461903;
+        double expected = 2.83;
         double out = a.distance(b);
         Assert.assertEquals(expected, out, 0.01);
     }
