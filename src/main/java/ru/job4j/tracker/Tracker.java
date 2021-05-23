@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @Раздел Блок 2. ООП / 3. Инкапсуляция
- * @Задание 5. Tracker - хранилище. [396#271567]
+ * @Задание 5. Tracker - хранилище. [396#271567] (ver.1)
  * @Описание 1. Добавьте недостающие методы в класс Tracker. В классе Tracker должны быть методы:
  * - добавление заявок - public Item add(Item item);
  * - получение списка всех заявок - public Item[] findAll();
@@ -15,15 +15,37 @@ import java.util.Arrays;
  * - Вызовите метод findById и найденный Item выведите на консоль.
  * 3. Напишите тесты. Протестируйте код в junit.
  * 4. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 3. Инкапсуляция
+ * @Задание 6. Метод замены заявки. Tracker.replace. [211748#271564] (ver.2)
+ * @Описание 1. Реализуйте метод Tracker.replace, используя метод indexOf. Причем вызов indexOf должен быть один.
+ * 2. Проверьте работу метода replace с помощью тест-метода. Протестируйте код в junit.
+ * 3. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 1
+ * @version 2
  */
 
 public class Tracker {
     private final Item[] items = new Item[100];
     private int ids = 1;
     private int size = 0;
+
+    /**
+     * Метод возвращает index по id
+     * @param id номер заявки
+     * @return
+     */
+    private int indexOf(int id) {
+        int rsl = -1;
+        for (int index = 0; index < size; index++) {
+            if (items[index].getId() == id) {
+                rsl = index;
+                break;
+            }
+        }
+        return rsl;
+    }
 
     /**
      * Метод добавления заявки в хранилище
@@ -69,15 +91,10 @@ public class Tracker {
      * @param id номер заявки
      */
     public Item findById(int id) {
-        Item rsl = null;
-        for (int index = 0; index < size; index++) {
-            Item item = items[index];
-            if (item.getId() == id) {
-                rsl = item;
-                break;
-            }
-        }
-        return rsl;
+        // Находим индекс
+        int index = indexOf(id);
+        // Если индекс найден возвращаем item, иначе null
+        return index != -1 ? items[index] : null;
     }
 
     /**
@@ -85,5 +102,28 @@ public class Tracker {
      */
     private String generateId() {
         return String.valueOf(ids++);
+    }
+
+    /**
+     * Метод замены старого итема на новый по номеру id (ключу)
+     * @param id номер заявки
+     * @param item новый итем
+     * @return true - замена успешно прошла, false - не произошла
+     */
+    public boolean replace(int id, Item item) {
+        boolean res = false;
+        //1. Находим индекс ячейки по id
+        int index = indexOf(id);
+        // Если индекс найден, то переставляем заявку (меняем)
+        if (index != -1) {
+            //2. Сохраняю старый id заявки
+            //item.setId(items[index].getId()); //было
+            item.setId(id);
+            //3. Записываю в найденную ячейку объект item
+            items[index] = item;
+            //4. Выставляю, что замена произошла
+            res = true;
+        }
+        return res;
     }
 }
