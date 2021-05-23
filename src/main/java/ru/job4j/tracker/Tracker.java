@@ -28,9 +28,15 @@ import java.util.Arrays;
  * Метод delete возвращает true, если заявление удалено или false, если index не найдет по id.
  * 2. Добавьте тест-метод, проверяющий удаление. Протестируйте код в junit.
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 3. Инкапсуляция
+ * @Задание 8. Что такое валидация? [246864#271566] (ver.4)
+ * @Описание 1. Доработайте методы delete и replace в классе ru.job4j.tracker.Tracker.
+ * 2. В методах должна быть проверка параметров - валидация.
+ * 3. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 3
+ * @version 4
  */
 
 public class Tracker {
@@ -118,18 +124,17 @@ public class Tracker {
      * @return true - замена успешно прошла, false - не произошла
      */
     public boolean replace(int id, Item item) {
-        boolean res = false;
         //1. Находим индекс ячейки по id
         int index = indexOf(id);
-        // Если индекс найден, то переставляем заявку (меняем)
-        if (index != -1) {
-            //2. Сохраняю старый id заявки
+        //2. Валидация. Проверка входных пар-ов
+        boolean res = index != -1;
+        // Если индекс найден, то меняю заявку
+        if (res) {
+            //3. Сохраняю старый id заявки
             //item.setId(items[index].getId()); //было
             item.setId(id);
-            //3. Записываю в найденную ячейку объект item
+            //4. Записываю в найденную ячейку объект item
             items[index] = item;
-            //4. Выставляю, что замена произошла
-            res = true;
         }
         return res;
     }
@@ -140,21 +145,21 @@ public class Tracker {
      * @return true - удаление прошло успешно, false - не произошло
      */
     public boolean delete(int id) {
-        boolean res = false;
         //1. Находим индекс удаляемой ячейки по id
         int index = indexOf(id);
+        //2. Валидация. Проверка входных пар-ов
+        boolean res = index != 1;
         // Если индекс найден, удаляю элемент по сдвигом
-        if (index != -1) {
-            //2. Задаю входные параметры:
+        if (res) {
+            //3. Задаю входные параметры:
             int startPos = index + 1;
             int distPos = index;
             int sizePos = size - index;
-            //3. Удаление со смещением массива вверх
+            //4. Удаление со смещением массива вверх
             System.arraycopy(items, startPos, items, distPos, sizePos);
-            //4. Сдвиг последнего элемента в items
+            //5. Сдвиг последнего элемента в items
             items[size - 1] = null;
             size--;
-            res = true;
         }
         return res;
     }
