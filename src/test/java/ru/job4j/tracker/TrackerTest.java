@@ -3,12 +3,15 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsNull.nullValue;
 
 /**
  * добавление заявок - public Item add(Item item);
  * получение списка всех заявок - public Item[] findAll();
  * получение списка по имени - public Item[] findByName(String key);
  * получение заявки по id - public Item findById(int id);
+ * заменить заявку по id - public boolean replace(int id, Item item);
+ * удалить заявку по id - public boolean delete(int id);
  */
 
 public class TrackerTest {
@@ -88,5 +91,16 @@ public class TrackerTest {
         bugWithDesc.setName("Bug with description");
         tracker.replace(id, bugWithDesc);
         assertThat(tracker.findById(id).getName(), is("Bug with description"));
+    }
+
+    @Test
+    public void whenDelete() {
+        Tracker tracker = new Tracker();
+        Item bug = new Item();
+        bug.setName("Bug");
+        tracker.add(bug);
+        int id = bug.getId();
+        tracker.delete(id);
+        assertThat(tracker.findById(id), is(nullValue()));
     }
 }

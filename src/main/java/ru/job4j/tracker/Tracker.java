@@ -21,9 +21,16 @@ import java.util.Arrays;
  * @Описание 1. Реализуйте метод Tracker.replace, используя метод indexOf. Причем вызов indexOf должен быть один.
  * 2. Проверьте работу метода replace с помощью тест-метода. Протестируйте код в junit.
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 3. Инкапсуляция
+ * @Задание 7. Метод удаления заявки Tracker.delete. [211749#271565] (ver.3)
+ * @Описание 1. Реализуйте метод Tracker.delete, используя indexOf. Причем вызов indexOf должен быть один.
+ * Метод delete возвращает true, если заявление удалено или false, если index не найдет по id.
+ * 2. Добавьте тест-метод, проверяющий удаление. Протестируйте код в junit.
+ * 3. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 2
+ * @version 3
  */
 
 public class Tracker {
@@ -122,6 +129,31 @@ public class Tracker {
             //3. Записываю в найденную ячейку объект item
             items[index] = item;
             //4. Выставляю, что замена произошла
+            res = true;
+        }
+        return res;
+    }
+
+    /**
+     * Метод удаления итема по номеру id
+     * @param id номер заявки
+     * @return true - удаление прошло успешно, false - не произошло
+     */
+    public boolean delete(int id) {
+        boolean res = false;
+        //1. Находим индекс удаляемой ячейки по id
+        int index = indexOf(id);
+        // Если индекс найден, удаляю элемент по сдвигом
+        if (index != -1) {
+            //2. Задаю входные параметры:
+            int startPos = index + 1;
+            int distPos = index;
+            int sizePos = size - index;
+            //3. Удаление со смещением массива вверх
+            System.arraycopy(items, startPos, items, distPos, sizePos);
+            //4. Сдвиг последнего элемента в items
+            items[size - 1] = null;
+            size--;
             res = true;
         }
         return res;
