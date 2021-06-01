@@ -29,7 +29,7 @@ public class Library {
 
     public static void showBookCleanCodeAsString(Book[] books, String cleanCode) {
         for (int index = 0; index < books.length; index++) {
-            if (books[index].getNameBook() == cleanCode) {
+            if (books[index].getNameBook().equals(cleanCode)) {
                 showItemBookByIndex(books, index);
                 System.out.println("index book = " + index + " at massiv Book[]");
             }
