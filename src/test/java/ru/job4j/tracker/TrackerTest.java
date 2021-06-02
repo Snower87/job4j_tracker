@@ -66,7 +66,7 @@ public class TrackerTest {
     @Test
     public void whenTrackerHasItemsThenFindThemAll() {
         Tracker tracker = new Tracker();
-        Item item1 = new Item( "test1");
+        Item item1 = new Item("test1");
         Item item2 = new Item("test2");
         Item item3 = new Item("test3");
         tracker.add(item1);
