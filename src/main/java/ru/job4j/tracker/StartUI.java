@@ -61,22 +61,25 @@ import java.util.Scanner;
  * 5.4. Результат работы метода findByName() необходимо валидировать, поскольку метод может вернуть пустой массив;
  * 5.5. Если длина массива больше 0 - выводим массив в соответствии с примечанием 1, иначе фразу - "Заявки с таким именем
  *      не найдены".
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 4.1. Разрыв зависимости StartUI от Scanner. [181778 #271509] (ver.3)
+ * @Описание 1. Разорвите зависимость класса StartUI от класса Scanner.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 2
+ * @version 3
  */
 
 public class StartUI {
-    public void init(Scanner scanner, Tracker tracker) {
+    public void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             this.showMenu();
-            System.out.print("Select: ");
-            int select = Integer.valueOf(scanner.nextLine());
+            int select = input.askInt("Select: ");
             if (select == 0) {
                 System.out.println("=== Create a new Item ====");
-                System.out.print("Enter name: ");
-                String name = scanner.nextLine();
+                String name = input.askStr("Enter name: ");
                 Item item = new Item(name);
                 tracker.add(item);
             } else if (select == 1) {
@@ -88,10 +91,8 @@ public class StartUI {
                 }
             } else if (select == 2) {
                 System.out.println("=== Edit item ====");
-                System.out.print("Enter id: ");
-                Integer id = Integer.parseInt(scanner.nextLine());
-                System.out.print("Enter new value item: ");
-                String newValue = scanner.nextLine();
+                Integer id = input.askInt("Enter id: ");
+                String newValue = input.askStr("Enter new value item: ");
                 Item newItem = new Item(newValue);
                 if (tracker.replace(id, newItem)) {
                     System.out.println("Edit operation id " + id + " was successful");
@@ -100,8 +101,7 @@ public class StartUI {
                 }
             } else if (select == 3) {
                 System.out.println("=== Delete Item ====");
-                System.out.print("Enter delete id: ");
-                Integer id = Integer.parseInt(scanner.nextLine());
+                Integer id = input.askInt("Enter delete id: ");
                 if (tracker.delete(id)) {
                     System.out.println("Delete operation id " + id + " was successful");
                 } else {
@@ -109,8 +109,7 @@ public class StartUI {
                 }
             } else if (select == 4) {
                 System.out.println("=== Find item by id ====");
-                System.out.print("Enter find id: ");
-                Integer id = Integer.parseInt(scanner.nextLine());
+                Integer id = input.askInt("Enter find id: ");
                 Item item = tracker.findById(id);
                 if (item != null) {
                     System.out.println("Find item with " + id + " was successful.");
@@ -121,8 +120,7 @@ public class StartUI {
                 }
             } else if (select == 5) {
                 System.out.println("=== Find items by name ====");
-                System.out.print("Enter find key word: ");
-                String key = scanner.nextLine();
+                String key = input.askStr("Enter find key word: ");
                 Item[] items = tracker.findByName(key);
                 if (items.length != 0) {
                     System.out.println("Find item by key word \"" + key + "\" was successful.");
@@ -154,8 +152,8 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(scanner, tracker);
+        new StartUI().init(input, tracker);
     }
 }
