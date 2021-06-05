@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Scanner;
-
 /**
  * @Раздел Блок 2. ООП / 3. Инкапсуляция
  * @Задание 5. Tracker - хранилище. [396#271567] (ver.1)
@@ -71,9 +69,14 @@ import java.util.Scanner;
  * @Задание 4.2. Статические методы. [181779#271510] (ver.4)
  * @Описание 1. Создайте статические методы createItem, replaceItem, deteleItem и тд.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание Переопределение метода toString() (ver.5)
+ * @Описание 1. Исправление ошибки. Переопределение метода toString().
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 4
+ * @version 5
  */
 
 public class StartUI {
@@ -88,8 +91,7 @@ public class StartUI {
         System.out.println("=== Show all item ====");
         Item[] items = tracker.findAll();
         for (Item item: items) {
-            System.out.print("id: " + item.getId() + ", ");
-            System.out.println("name: " + item.getName());
+            System.out.println(item.toString());
         }
     }
 
@@ -121,8 +123,7 @@ public class StartUI {
         Item item = tracker.findById(id);
         if (item != null) {
             System.out.println("Find item with " + id + " was successful.");
-            System.out.print("id: " + item.getId() + ", ");
-            System.out.println("name: " + item.getName());
+            System.out.println(item.toString());
         } else {
             System.out.println("Find item with " + id + " by id - failed");
         }
@@ -135,8 +136,7 @@ public class StartUI {
         if (items.length != 0) {
             System.out.println("Find item by key word \"" + key + "\" was successful.");
             for (Item item: items) {
-                System.out.print("id: " + item.getId() + ", ");
-                System.out.println("name: " + item.getName());
+                System.out.println(item.toString());
             }
         } else {
             System.out.println("Find item by key word " + key + " - failed");

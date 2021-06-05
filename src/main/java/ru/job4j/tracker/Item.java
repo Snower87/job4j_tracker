@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 /**
  * @Раздел Блок 2. ООП / 2. Наследование
- * @Задание 2. Перегрузка конструктора. [173890#271554]
+ * @Задание 2. Перегрузка конструктора. [173890#271554] (ver.1)
  * @Описание 1. В классе ru.job4j.tracker.Item, который у Вас уже есть в проекте Tracker, должно быть два поля:
  * - int id;
  * - String name.
@@ -10,9 +10,11 @@ package ru.job4j.tracker;
  * 2. Создайте три конструктора: без параметров, с параметром String name, с параметрами int id и String name.
  * Конструкторы с параметрами должны инициализировать поля, которые объявлены в классе.
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+0
  * @author Sergei Begletsov
  * @since 17.05.2021
- * @version 1
+ * @version 2
  */
 
 public class Item {
@@ -48,5 +50,11 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id +
+                ", name: " + name;
     }
 }
