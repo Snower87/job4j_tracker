@@ -74,9 +74,15 @@ package ru.job4j.tracker;
  * @Задание Переопределение метода toString() (ver.5)
  * @Описание 1. Исправление ошибки. Переопределение метода toString().
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 8. Реализация меню за счет шаблона стратегия. [181780# 271511] (ver.6)
+ * @Описание 1. Произведите изменения проекта "Tracker" для различных действий. Добавьте использование UserAction.
+ * 2. Реализуйте интерфейс UserAction используя шаблон "Стратегия".
+ * 3. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 5
+ * @version 6
  */
 
 public class StartUI {
@@ -143,46 +149,38 @@ public class StartUI {
         }
     }
 
-    public void init(Input input, Tracker tracker) {
+    public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            this.showMenu();
+            this.showMenu(actions);
             int select = input.askInt("Select: ");
-            if (select == 0) {
-                StartUI.createItem(input, tracker);
-            } else if (select == 1) {
-                StartUI.showAllItems(tracker);
-            } else if (select == 2) {
-                StartUI.editItem(input, tracker);
-            } else if (select == 3) {
-                StartUI.deleteItem(input, tracker);
-            } else if (select == 4) {
-                StartUI.findItemId(input, tracker);
-            } else if (select == 5) {
-                StartUI.findItemName(input, tracker);
-            } else if (select == 6) {
-                run = false;
-            }
+            UserAction action = actions[select];
+            run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu() {
+    private void showMenu(UserAction[] actions) {
         System.out.println("------------------------");
         System.out.println("         MENU           ");
         System.out.println("------------------------");
-        // добавить остальные пункты меню.
-        System.out.println("0. Add new item");
-        System.out.println("1. Show all items");
-        System.out.println("2. Edit item");
-        System.out.println("3. Delete item");
-        System.out.println("4. Find item by Id");
-        System.out.println("5. Find items by name");
-        System.out.println("6. Exit Program");
+        for (int index = 0; index < actions.length; index++) {
+            System.out.println(index + ". " + actions[index].name());
+        }
+        
     }
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(input, tracker);
+        UserAction[] userActions =  {
+                new CreateAction(),
+                new ShowAllAction(),
+                new EditItemAction(),
+                new DeleteItemAction(),
+                new FindItemIdAction(),
+                new FindItemNameAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, userActions);
     }
 }
