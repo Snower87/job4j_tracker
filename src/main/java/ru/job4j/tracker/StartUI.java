@@ -80,72 +80,85 @@ package ru.job4j.tracker;
  * @Описание 1. Произведите изменения проекта "Tracker" для различных действий. Добавьте использование UserAction.
  * 2. Реализуйте интерфейс UserAction используя шаблон "Стратегия".
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 9.1 Рефакторинг теста @Before @After. [33568#271501] (ver.7)
+ * @Описание 1. Произведите рефакторинг проекта. Нам нужно заменить вывод в консоль на интрефейс Output.
+ * Тесты на проверку вывода в консоль мы напишем в следующем уроке.
+ * После рефакторинга запустите приложение через main и проверьте, что оно работает.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 6
+ * @version 7
  */
 
 public class StartUI {
-    public static void createItem(Input input, Tracker tracker) {
-        System.out.println("=== Create a new Item ====");
+    private final Output out;
+
+    public StartUI(Output out) {
+        this.out = out;
+    }
+
+    public void createItem(Input input, Tracker tracker) {
+        out.println("=== Create a new Item ====");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
         tracker.add(item);
     }
 
-    public static void showAllItems(Tracker tracker) {
-        System.out.println("=== Show all item ====");
+    public void showAllItems(Tracker tracker) {
+        out.println("=== Show all item ====");
         Item[] items = tracker.findAll();
         for (Item item: items) {
-            System.out.println(item.toString());
+            out.println(item.toString());
         }
     }
 
-    public static void editItem(Input input, Tracker tracker) {
-        System.out.println("=== Edit item ====");
+    public void editItem(Input input, Tracker tracker) {
+        out.println("=== Edit item ====");
         Integer id = input.askInt("Enter id: ");
         String newValue = input.askStr("Enter new value item: ");
         Item newItem = new Item(newValue);
         if (tracker.replace(id, newItem)) {
-            System.out.println("Edit operation id " + id + " was successful");
+            out.println("Edit operation id " + id + " was successful");
         } else {
-            System.out.println("Edit operation id " + id + " - failed");
+            out.println("Edit operation id " + id + " - failed");
         }
     }
 
-    public static void deleteItem(Input input, Tracker tracker) {
-        System.out.println("=== Delete Item ====");
+    public void deleteItem(Input input, Tracker tracker) {
+        out.println("=== Delete Item ====");
         Integer id = input.askInt("Enter delete id: ");
         if (tracker.delete(id)) {
-            System.out.println("Delete operation id " + id + " was successful");
+            out.println("Delete operation id " + id + " was successful");
         } else {
-            System.out.println("Delete operation id " + id + " - failed");
+            out.println("Delete operation id " + id + " - failed");
         }
     }
 
-    public static void findItemId(Input input, Tracker tracker) {
-        System.out.println("=== Find item by id ====");
+    public void findItemId(Input input, Tracker tracker) {
+        out.println("=== Find item by id ====");
         Integer id = input.askInt("Enter find id: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            System.out.println("Find item with " + id + " was successful.");
-            System.out.println(item.toString());
+            out.println("Find item with " + id + " was successful.");
+            out.println(item.toString());
         } else {
-            System.out.println("Find item with " + id + " by id - failed");
+            out.println("Find item with " + id + " by id - failed");
         }
     }
 
-    public static void findItemName(Input input, Tracker tracker) {
-        System.out.println("=== Find items by name ====");
+    public void findItemName(Input input, Tracker tracker) {
+        out.println("=== Find items by name ====");
         String key = input.askStr("Enter find key word: ");
         Item[] items = tracker.findByName(key);
         if (items.length != 0) {
-            System.out.println("Find item by key word \"" + key + "\" was successful.");
+            out.println("Find item by key word \"" + key + "\" was successful.");
             for (Item item: items) {
-                System.out.println(item.toString());
+                out.println(item.toString());
             }
         } else {
-            System.out.println("Find item by key word " + key + " - failed");
+            out.println("Find item by key word " + key + " - failed");
         }
     }
 
@@ -160,27 +173,28 @@ public class StartUI {
     }
 
     private void showMenu(UserAction[] actions) {
-        System.out.println("------------------------");
-        System.out.println("         MENU           ");
-        System.out.println("------------------------");
+        out.println("------------------------");
+        out.println("         MENU           ");
+        out.println("------------------------");
         for (int index = 0; index < actions.length; index++) {
-            System.out.println(index + ". " + actions[index].name());
+            out.println(index + ". " + actions[index].name());
         }
         
     }
 
     public static void main(String[] args) {
+        Output output = new ConsoleOutput();
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
         UserAction[] userActions =  {
-                new CreateAction(),
-                new ShowAllAction(),
-                new EditItemAction(),
-                new DeleteItemAction(),
-                new FindItemIdAction(),
-                new FindItemNameAction(),
+                new CreateAction(output),
+                new ShowAllAction(output),
+                new EditItemAction(output),
+                new DeleteItemAction(output),
+                new FindItemIdAction(output),
+                new FindItemNameAction(output),
                 new ExitAction()
         };
-        new StartUI().init(input, tracker, userActions);
+        new StartUI(output).init(input, tracker, userActions);
     }
 }
