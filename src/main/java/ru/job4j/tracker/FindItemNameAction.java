@@ -17,12 +17,12 @@ public class FindItemNameAction implements UserAction {
         String key = input.askStr("Enter find key word: ");
         Item[] items = tracker.findByName(key);
         if (items.length != 0) {
-            System.out.println("Find item by key word \"" + key + "\" was successful.");
+            out.println("Find item by key word \"" + key + "\" was successful.");
             for (Item item: items) {
-                System.out.println(item.toString());
+                out.println(item.toString());
             }
         } else {
-            System.out.println("Find item by key word " + key + " - failed");
+            out.println("Find item by key word " + key + " - failed");
         }
         return true;
     }
