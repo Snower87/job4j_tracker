@@ -2,18 +2,30 @@ package ru.job4j.exceptions;
 
 /**
  * @Раздел Блок 2. ООП / 5. Исключения
- * @Задание 0.4. Пользовательские исключения. [219367#271524]
+ * @Задание 0.4. Пользовательские исключения. [219367#271524] (ver.1)
  * @Описание 1. Создайте класс ru.job4j.ex.ElementNotFoundException. Класс должен наследоваться от java.lang.Exception.
  * 2. Допишите метод поиска индекса элемента в строковом массиве nt indexOf(String[] value, String key).
  * 3. Если элемента нет, то нужно выкинуть исключение ElementNotFoundException. В сигнатуре метода объявите это исключение.
  * 4. Добавьте метод main, и в нем вызовите метод indexOf. В методе main используйте конструкцию try-catch.
  * 5. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 5. Исключения
+ * @Задание 0.5. Иерархия исключений и множественный catch. [219368#271525] (ver.2)
+ * @Описание 1. Работа с исключениями (по описанию к задаче).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 14.06.2021
- * @version 1
+ * @version 2
  */
 
 public class FindEl {
+    /**
+     * Метод indexOf - этот метод проверяет, что в списке есть ключ шаблона сообщения
+     * @param value список сообщений
+     * @param key искомый ключ
+     * @return индекс найденного ключа
+     * @throws ElementNotFoundException выкидавает, если ключ не найден
+     */
     public static int indexOf(String[] value, String key) throws ElementNotFoundException {
         int rsl = -1;
         for (int index = 0; index < value.length; index++) {
@@ -28,14 +40,53 @@ public class FindEl {
         return rsl;
     }
 
+    /**
+     * Метод sent отправляет сообщение, если ключ не входит в ключи запрещенных ключей
+     * @param value входной ключ
+     * @param abuses список запрещенных ключей
+     * @return true - если не содержит запрещенных ключей
+     * @throws ElementAbuseException выкидывает, если запрещенный ключ найден
+     */
+    public static boolean sent(String value, String[] abuses) throws ElementAbuseException {
+        // if contains throw ElementAbuseException
+        for (int index = 0; index < abuses.length; index++) {
+            if (value.equals(abuses[index])) {
+                throw new ElementAbuseException("Abuse is found");
+            }
+        }
+        return true;
+    }
+
+    public static void process(String[] values, String key, String[] abuses) {
+        //Вариант №1 как надо отлавливать прерывания
+        try {
+            if (indexOf(values, key) != -1) {
+                sent(key, abuses);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
+        //Вариант №2 отлавливания с множественных catch
+        } catch (ElementAbuseException ea) {
+            ea.printStackTrace();
+        } catch (ElementNotFoundException en) {
+            en.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (Throwable th) {  //Отлавливает любые нестандартные ситуации в нашей программе
+            th.printStackTrace(); //Эти исключения ловить через блок try-catch не надо
+        }
+        */
+    }
+
     public static void main(String[] args) {
         String[] str = new String[] {"Сидела", " кукушка", " на", " ветке ", "№1", " и", " читала", " строку ", "№2",
                                      " в", " книге ", "№3"};
-        try {
-            int indexKeyword = indexOf(str, "№1");
-            System.out.println(indexKeyword);
-        } catch (ElementNotFoundException e) {
-            e.printStackTrace();
-        }
+        //String keyWord = str[4]; //-> ru.job4j.ex.ElementAbuseException: Abuse is found
+        //String keyWord = "раздватричетырепять"; //-> ru.job4j.ex.ElementNotFoundException: Keyword index not found
+        String keyWord = str[3]; //-> ru.job4j.ex.ElementNotFoundException: Keyword index not found
+        String[] abuses = new String[] {"#33", "str", "test_init", "№1"};
+        process(str, keyWord, abuses);
     }
 }
