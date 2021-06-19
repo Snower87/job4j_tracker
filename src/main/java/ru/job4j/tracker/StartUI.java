@@ -92,9 +92,15 @@ package ru.job4j.tracker;
  * @Задание 9.2. Тесты вывода на консоль в StartUI. [33585#271502] (ver.8)
  * @Описание 1. Произвести тестирование классов FindAllAction, FindByNameAction, FindByIdAction.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 5. Исключения
+ * @Задание 1. Обеспечить бесперебойную работу приложения Tracker. [789#271528] (ver.9)
+ * @Описание 1. Произведите рефакторинг кода. Нужно будет обеспечить бесперебойную работу приложения Tracker (обработать
+ * появление исключений). Добавьте обработку ситуаций: ввод несуществующего пункта меню, ввода строки вместо числа.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 8
+ * @version 9
  */
 
 public class StartUI {
@@ -171,7 +177,14 @@ public class StartUI {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = input.askInt("Select: ");
+            //Вариант №1. Проверки корректного пункта меню
+            int select = input.askInt("Select: ", actions.length - 1);
+            //Вариант №2. Проверки корректного пункта меню
+            //            (Более простой)
+            //if (select < 0 || select >= actions.length) {
+            //    out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+            //    continue;
+            //}
             UserAction action = actions[select];
             run = action.execute(input, tracker);
         }
@@ -189,7 +202,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
-        Input input = new ConsoleInput();
+        Input validate  = new ValidateInput();
         Tracker tracker = new Tracker();
         UserAction[] userActions =  {
                 new CreateAction(output),
@@ -200,6 +213,6 @@ public class StartUI {
                 new FindItemNameAction(output),
                 new ExitAction()
         };
-        new StartUI(output).init(input, tracker, userActions);
+        new StartUI(output).init(validate, tracker, userActions);
     }
 }
