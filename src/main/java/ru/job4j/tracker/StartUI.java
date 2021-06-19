@@ -178,13 +178,14 @@ public class StartUI {
         while (run) {
             this.showMenu(actions);
             //Вариант №1. Проверки корректного пункта меню
-            int select = input.askInt("Select: ", actions.length - 1);
+            //int select = input.askInt("Select: ", actions.length - 1);
             //Вариант №2. Проверки корректного пункта меню
             //            (Более простой)
-            //if (select < 0 || select >= actions.length) {
-            //    out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
-            //    continue;
-            //}
+            int select = input.askInt("Select: ");
+            if (select < 0 || select >= actions.length) {
+                out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+                continue;
+            }
             UserAction action = actions[select];
             run = action.execute(input, tracker);
         }

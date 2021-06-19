@@ -231,4 +231,30 @@ public class StartUITest {
                         "2. Exit Program" + ln
         ));
     }
+
+    @Test
+    public void whenInvalidExit() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"23", "0"/* Пункты меню: неверный, верный. */}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = new UserAction[]{
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        String ln = System.lineSeparator();
+        assertThat(out.toString(), is(
+                 "------------------------" + ln +
+                        "         MENU           " + ln +
+                        "------------------------" + ln +
+                        "0. Exit Program" + ln +
+                        "Wrong input, you can select: 0 .. 0" + ln +
+                        "------------------------" + ln +
+                        "         MENU           " + ln +
+                        "------------------------" + ln +
+                        "0. Exit Program" + ln
+                )
+        );
+    }
 }
