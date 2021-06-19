@@ -34,11 +34,11 @@ public class UserStore {
      */
     public static User findUser(User[] users, String login) throws UserNotFoundException {
         //1. Поиск пользователя
-        for (int index = 0; index < users.length; index++) {
-            if (users[index].getUsername().equals(login)) {
+        for (User user : users) {
+            if (user.getUsername().equals(login)) {
                 //2. Пользователь найден -> завершение работы,
                 //   возвращаем пользователя
-                return users[index];
+                return user;
             }
         }
         //3. Пользователь не найден - кидаем прерывание
@@ -54,14 +54,16 @@ public class UserStore {
      */
     public static boolean validate(User user) throws UserInvalidException {
         //1. Проверка длины и поля valid на достоверность
-        if ((user.getUsername().length() <= 3) || (!user.isValid())) {
-            //2. Длина или поле valid не достоверны ->
-            //   кидаем прерывание
-            throw new UserInvalidException("User is invalid");
-        } else {
+        if (user.getUsername().length() <= 3) {
+            //2.1 Имя пользователя не достоверно -> кидаем прерывание
+            throw new UserInvalidException("User name is invalid");
+        }
+        if (!user.isValid()) {
+            //2.2 Пользователь не доступен -> кидаем прерывание
+            throw new UserInvalidException("User not available");
+        }
             //3. С пользователем все хорошо = проверен (валиден)
             return true;
-        }
     }
 
     public static void main(String[] args) {
