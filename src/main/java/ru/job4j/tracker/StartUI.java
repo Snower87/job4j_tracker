@@ -98,9 +98,14 @@ package ru.job4j.tracker;
  * @Описание 1. Произведите рефакторинг кода. Нужно будет обеспечить бесперебойную работу приложения Tracker (обработать
  * появление исключений). Добавьте обработку ситуаций: ввод несуществующего пункта меню, ввода строки вместо числа.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 5. Исключения
+ * @Задание 2. Рефакторинг - Шаблон Декоратор для валидатора. [34117#271519] (ver.10)
+ * @Описание 1. Произвести рефакторинг кода класса ru.job4j.tracker.ValidateInput с использованием шаблона Декоратор.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 9
+ * @version 10
  */
 
 public class StartUI {
@@ -203,7 +208,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
-        Input validate  = new ValidateInput();
+        Input validate  = new ValidateInput(output, new ConsoleInput());
         Tracker tracker = new Tracker();
         UserAction[] userActions =  {
                 new CreateAction(output),
