@@ -122,9 +122,15 @@ import java.util.Scanner;
  * @Задание 2.2. Реализация класса StartUI. Вывод меню. [#500743] (ver.13)
  * @Описание 1. Доработайте класс StartUI в соответствии с описанием.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.3. Реализация класса StartUI. Добавление заявки. [#500744] (ver.14)
+ * @Описание 1. Доработайте класс StartUI - добавьте возможность добавления заявки в хранилище в соответствии с описанием.
+ * Дорабатывать мы будем метод init(), в остальной части правки в код вносить не нужно.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 13
+ * @version 14
  */
 
 public class StartUI {
@@ -134,9 +140,14 @@ public class StartUI {
             showMenu();
             System.out.print("Select: ");
             int select = Integer.parseInt(scanner.nextLine());
-            if (select != 6) {
-                System.out.println("Пользователь выбрал: " + select);
-            } else {
+            if (select == 0) {
+                System.out.println("=== Create a new Item ====");
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                tracker.add(item);
+                System.out.println("Добавленная заявка: " + item);
+            } else if (select == 6) {
                 run = false;
             }
         }
