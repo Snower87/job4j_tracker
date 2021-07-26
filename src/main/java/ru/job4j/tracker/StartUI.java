@@ -103,122 +103,16 @@ package ru.job4j.tracker;
  * @Задание 2. Рефакторинг - Шаблон Декоратор для валидатора. [34117#271519] (ver.10)
  * @Описание 1. Произвести рефакторинг кода класса ru.job4j.tracker.ValidateInput с использованием шаблона Декоратор.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание Чистка класса StartUI. (ver.11)
+ * @Описание 1. Как бы он не выглядел у Вас на данный момент (класс StartUI), требуется очистить его содержимое класса
+ * и его доработку мы начнем с пустого каркаса.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 10
+ * @version 11
  */
 
 public class StartUI {
-    private final Output out;
-
-    public StartUI(Output out) {
-        this.out = out;
-    }
-
-    public void createItem(Input input, Tracker tracker) {
-        out.println("=== Create a new Item ====");
-        String name = input.askStr("Enter name: ");
-        Item item = new Item(name);
-        tracker.add(item);
-    }
-
-    public void showAllItems(Tracker tracker) {
-        out.println("=== Show all item ====");
-        Item[] items = tracker.findAll();
-        for (Item item: items) {
-            out.println(item.toString());
-        }
-    }
-
-    public void editItem(Input input, Tracker tracker) {
-        out.println("=== Edit item ====");
-        Integer id = input.askInt("Enter id: ");
-        String newValue = input.askStr("Enter new value item: ");
-        Item newItem = new Item(newValue);
-        if (tracker.replace(id, newItem)) {
-            out.println("Edit operation id " + id + " was successful");
-        } else {
-            out.println("Edit operation id " + id + " - failed");
-        }
-    }
-
-    public void deleteItem(Input input, Tracker tracker) {
-        out.println("=== Delete Item ====");
-        Integer id = input.askInt("Enter delete id: ");
-        if (tracker.delete(id)) {
-            out.println("Delete operation id " + id + " was successful");
-        } else {
-            out.println("Delete operation id " + id + " - failed");
-        }
-    }
-
-    public void findItemId(Input input, Tracker tracker) {
-        out.println("=== Find item by id ====");
-        Integer id = input.askInt("Enter find id: ");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            out.println("Find item with " + id + " was successful.");
-            out.println(item.toString());
-        } else {
-            out.println("Find item with " + id + " by id - failed");
-        }
-    }
-
-    public void findItemName(Input input, Tracker tracker) {
-        out.println("=== Find items by name ====");
-        String key = input.askStr("Enter find key word: ");
-        Item[] items = tracker.findByName(key);
-        if (items.length != 0) {
-            out.println("Find item by key word \"" + key + "\" was successful.");
-            for (Item item: items) {
-                out.println(item.toString());
-            }
-        } else {
-            out.println("Find item by key word " + key + " - failed");
-        }
-    }
-
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
-        boolean run = true;
-        while (run) {
-            this.showMenu(actions);
-            //Вариант №1. Проверки корректного пункта меню
-            //int select = input.askInt("Select: ", actions.length - 1);
-            //Вариант №2. Проверки корректного пункта меню
-            //            (Более простой)
-            int select = input.askInt("Select: ");
-            if (select < 0 || select >= actions.length) {
-                out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
-                continue;
-            }
-            UserAction action = actions[select];
-            run = action.execute(input, tracker);
-        }
-    }
-
-    private void showMenu(UserAction[] actions) {
-        out.println("------------------------");
-        out.println("         MENU           ");
-        out.println("------------------------");
-        for (int index = 0; index < actions.length; index++) {
-            out.println(index + ". " + actions[index].name());
-        }
-        
-    }
-
-    public static void main(String[] args) {
-        Output output = new ConsoleOutput();
-        Input validate  = new ValidateInput(output, new ConsoleInput());
-        Tracker tracker = new Tracker();
-        UserAction[] userActions =  {
-                new CreateAction(output),
-                new ShowAllAction(output),
-                new EditItemAction(output),
-                new DeleteItemAction(output),
-                new FindItemIdAction(output),
-                new FindItemNameAction(output),
-                new ExitAction()
-        };
-        new StartUI(output).init(validate, tracker, userActions);
-    }
 }
