@@ -150,9 +150,14 @@ import java.util.Scanner;
  * @Задание 2.7. Реализация класса StartUI. Вывод заявки по id. [#500748] (ver.18)
  * @Описание 1. В этом задании мы добавим возможность поиска заявки по id и вывода ее в консоль (пункт меню 4).
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.8. Реализация класса StartUI. Вывод заявок по имени. [#500749] (ver.19)
+ * @Описание 1. В этом задании мы добавим возможность вывода в консоль заявок, которые найдены по имени (пункт меню 5).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 18
+ * @version 19
  */
 
 public class StartUI {
@@ -209,6 +214,18 @@ public class StartUI {
                     System.out.println(item);
                 } else {
                     System.out.println("Заявка с введенным id: " + id + " не найдена.");
+                }
+            } else if (select == 5) {
+                System.out.println("=== Find items by name ====");
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+                Item[] items = tracker.findByName(name);
+                if (items.length > 0) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Заявки с именем: " + name + " не найдены.");
                 }
             } else if (select == 6) {
                 run = false;
