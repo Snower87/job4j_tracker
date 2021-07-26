@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -128,9 +129,15 @@ import java.util.Scanner;
  * @Описание 1. Доработайте класс StartUI - добавьте возможность добавления заявки в хранилище в соответствии с описанием.
  * Дорабатывать мы будем метод init(), в остальной части правки в код вносить не нужно.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.4. Реализация класса StartUI. Вывод всех заявок. [#500745] (ver.15)
+ * @Описание 1. В этом задании доработаем наше приложение так, чтобы при выборе пункта меню с номером 1 в консоль
+ * выводились все заявки, которые мы добавили в хранилище.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 14
+ * @version 15
  */
 
 public class StartUI {
@@ -147,6 +154,16 @@ public class StartUI {
                 Item item = new Item(name);
                 tracker.add(item);
                 System.out.println("Добавленная заявка: " + item);
+            } else if (select == 1) {
+                System.out.println("=== Show all items ====");
+                Item[] items = tracker.findAll();
+                if (items.length > 0) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Хранилище еще не содержит заявок");
+                }
             } else if (select == 6) {
                 run = false;
             }
