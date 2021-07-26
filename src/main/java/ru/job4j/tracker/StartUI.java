@@ -135,9 +135,14 @@ import java.util.Scanner;
  * @Описание 1. В этом задании доработаем наше приложение так, чтобы при выборе пункта меню с номером 1 в консоль
  * выводились все заявки, которые мы добавили в хранилище.
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.5. Реализация класса StartUI. Изменение заявки. [#500746] (ver.16)
+ * @Описание 1. В этом задании мы добавим в наше приложение возможность редактирования заявки (пункт меню 2).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 15
+ * @version 16
  */
 
 public class StartUI {
@@ -163,6 +168,18 @@ public class StartUI {
                     }
                 } else {
                     System.out.println("Хранилище еще не содержит заявок");
+                }
+            } else if (select == 2) {
+                System.out.println("=== Edit item ====");
+                System.out.print("Enter id: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                if (tracker.replace(id, item)) {
+                    System.out.println("Заявка изменена успешно.");
+                } else {
+                    System.out.println("Ошибка замены заявки.");
                 }
             } else if (select == 6) {
                 run = false;
