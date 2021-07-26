@@ -117,10 +117,46 @@ import java.util.Scanner;
  * @Описание 1. Как бы он не выглядел у Вас на данный момент (класс StartUI), требуется очистить его содержимое класса
  * и его доработку мы начнем с пустого каркаса. А также тесты, которые не пойдут!
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.2. Реализация класса StartUI. Вывод меню. [#500743] (ver.13)
+ * @Описание 1. Доработайте класс StartUI в соответствии с описанием.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 12
+ * @version 13
  */
 
 public class StartUI {
+    public void init(Scanner scanner, Tracker tracker) {
+        boolean run = true;
+        while (run) {
+            showMenu();
+            System.out.print("Select: ");
+            int select = Integer.parseInt(scanner.nextLine());
+            if (select != 6) {
+                System.out.println("Пользователь выбрал: " + select);
+            } else {
+                run = false;
+            }
+        }
+    }
+
+    private void showMenu() {
+        String[] menu = {
+                "Add new Item", "Show all items", "Edit item",
+                "Delete item", "Find item by id", "Find items by name",
+                "Exit Program"
+        };
+        System.out.println("Menu:");
+        for (int i = 0; i < menu.length; i++) {
+            System.out.println(i + ". " + menu[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Tracker tracker = new Tracker();
+        new StartUI().init(scanner, tracker);
+    }
 }
