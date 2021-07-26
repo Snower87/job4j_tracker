@@ -145,9 +145,14 @@ import java.util.Scanner;
  * @Задание 2.6. Реализация класса StartUI. Удаление заявки. [#500747] (ver.17)
  * @Описание 1. В этом задании мы добавим в наше приложение возможность удалить заявку (пункт меню 3).
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 2. ООП / 4. Полиморфизм
+ * @Задание 2.7. Реализация класса StartUI. Вывод заявки по id. [#500748] (ver.18)
+ * @Описание 1. В этом задании мы добавим возможность поиска заявки по id и вывода ее в консоль (пункт меню 4).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 17
+ * @version 18
  */
 
 public class StartUI {
@@ -194,6 +199,16 @@ public class StartUI {
                     System.out.println("Заявка удалена успешно.");
                 } else {
                     System.out.println("Ошибка удаления заявки.");
+                }
+            } else if (select == 4) {
+                System.out.println("=== Find item by id ====");
+                System.out.print("Enter id: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                Item item = tracker.findById(id);
+                if (item != null) {
+                    System.out.println(item);
+                } else {
+                    System.out.println("Заявка с введенным id: " + id + " не найдена.");
                 }
             } else if (select == 6) {
                 run = false;
