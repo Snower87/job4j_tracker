@@ -37,6 +37,10 @@ public class ValidateInputTest {
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
         assertThat(selected, is(12));
+        selected = input.askInt("Enter menu:");
+        assertThat(selected, is(22));
+        selected = input.askInt("Enter menu:");
+        assertThat(selected, is(19));
     }
 
     @Test
