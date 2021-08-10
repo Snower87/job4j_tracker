@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -155,9 +156,16 @@ import java.util.Scanner;
  * @Задание 2.8. Реализация класса StartUI. Вывод заявок по имени. [#500749] (ver.19)
  * @Описание 1. В этом задании мы добавим возможность вывода в консоль заявок, которые найдены по имени (пункт меню 5).
  * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 3. Collections. Lite / 1. Коллекция List, ArrayList
+ * @Задание 6. Изменить программу Tracker из 2-го модуля. [#10039 #23670] (ver.20)
+ * @Описание 1. Замените массив на коллекцию java.util.ArrayList в проекте Tracker.
+ * Эти изменения коснутся API класса Tracker:
+ * - public Item[] findAll() и public Item[] findByName(String key).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 19
+ * @version 20
  */
 
 public class StartUI {
@@ -176,8 +184,8 @@ public class StartUI {
                 System.out.println("Добавленная заявка: " + item);
             } else if (select == 1) {
                 System.out.println("=== Show all items ====");
-                Item[] items = tracker.findAll();
-                if (items.length > 0) {
+                List<Item> items = tracker.findAll();
+                if (items.size() > 0) {
                     for (Item item : items) {
                         System.out.println(item);
                     }
@@ -219,8 +227,8 @@ public class StartUI {
                 System.out.println("=== Find items by name ====");
                 System.out.print("Enter name: ");
                 String name = scanner.nextLine();
-                Item[] items = tracker.findByName(name);
-                if (items.length > 0) {
+                List<Item> items = tracker.findByName(name);
+                if (items.size() > 0) {
                     for (Item item : items) {
                         System.out.println(item);
                     }

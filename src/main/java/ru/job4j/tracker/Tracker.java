@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Раздел Блок 2. ООП / 3. Инкапсуляция
@@ -34,15 +36,21 @@ import java.util.Arrays;
  * @Описание 1. Доработайте методы delete и replace в классе ru.job4j.tracker.Tracker.
  * 2. В методах должна быть проверка параметров - валидация.
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
+ *
+ * @Раздел Блок 3. Collections. Lite / 1. Коллекция List, ArrayList
+ * @Задание 6. Изменить программу Tracker из 2-го модуля. [#10039 #23670] (ver.5)
+ * @Описание 1. Замените массив на коллекцию java.util.ArrayList в проекте Tracker.
+ * Эти изменения коснутся API класса Tracker:
+ * - public Item[] findAll() и public Item[] findByName(String key).
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 23.05.2021
- * @version 4
+ * @version 5
  */
 
 public class Tracker {
-    private final Item[] items = new Item[100];
+    private final List<Item> items = new ArrayList<>();
     private int ids = 1;
-    private int size = 0;
 
     /**
      * Метод возвращает index по id
@@ -51,8 +59,8 @@ public class Tracker {
      */
     private int indexOf(int id) {
         int rsl = -1;
-        for (int index = 0; index < size; index++) {
-            if (items[index].getId() == id) {
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId() == id) {
                 rsl = index;
                 break;
             }
@@ -66,37 +74,30 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(ids++);
-        items[size++] = item;
+        items.add(item);
         return item;
     }
 
     /**
      * Метод поиска всех не нулевых заявок в хранилище
      */
-    public Item[] findAll() {
-        //Вариант №1
-        //Item[] copyItems = new Item[items.length];
-        //copyItems = Arrays.copyOf(items, this.size);
-        //return copyItems;
-        //Вариант №2
-        return Arrays.copyOf(items, size);
+    public List<Item> findAll() {
+        return items;
     }
 
     /**
      * Метод поиска заявки в хранилище по ключу
      * @param key номер заявки
      */
-    public Item[] findByName(String key) {
-        Item[] copyItems = new Item[size];
-        int copySize = 0;
-        for (int index = 0; index < size; index++) {
-            Item item = this.items[index];
+    public List<Item> findByName(String key) {
+        List<Item> copyItems = new ArrayList<>(items.size());
+        for (int index = 0; index < items.size(); index++) {
+            Item item = this.items.get(index);
             if (key.equals(item.getName())) {
-                copyItems[copySize] = item;
-                copySize++;
+                copyItems.add(this.items.get(index));
             }
         }
-        return Arrays.copyOf(copyItems, copySize);
+        return copyItems;
     }
 
     /**
@@ -107,7 +108,7 @@ public class Tracker {
         // Находим индекс
         int index = indexOf(id);
         // Если индекс найден возвращаем item, иначе null
-        return index != -1 ? items[index] : null;
+        return index != -1 ? items.get(index) : null;
     }
 
     /**
@@ -134,7 +135,7 @@ public class Tracker {
             //item.setId(items[index].getId()); //было
             item.setId(id);
             //4. Записываю в найденную ячейку объект item
-            items[index] = item;
+            items.set(index, item);
         }
         return res;
     }
@@ -149,17 +150,9 @@ public class Tracker {
         int index = indexOf(id);
         //2. Валидация. Проверка входных пар-ов
         boolean res = index != -1;
-        // Если индекс найден, удаляю элемент по сдвигом
+        // Если индекс найден, удаляю элемент со сдвигом
         if (res) {
-            //3. Задаю входные параметры:
-            int startPos = index + 1;
-            int distPos = index;
-            int sizePos = size - index;
-            //4. Удаление со смещением массива вверх
-            System.arraycopy(items, startPos, items, distPos, sizePos);
-            //5. Сдвиг последнего элемента в items
-            items[size - 1] = null;
-            size--;
+            items.remove(index);
         }
         return res;
     }
