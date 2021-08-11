@@ -12,9 +12,10 @@ import java.util.HashSet;
 public class UniqueText {
     /**
      * Метод проверяет на уникальность две строки
-     * @param originText - оригинальный текст
-     * @param duplicateText - копия (копипаст) оригинала (с перестановкой слов)
-     * @return true - статьи одинаковы (= не уникальная), false - не одинаковы (уникальная)
+     * @param originText оригинальный текст
+     * @param duplicateText текст с другого источника (сайта)
+     * @return true - значит дубляж текста с перестановленными словами,
+     *         false - текст уникальный.
      */
     public static boolean isEquals(String originText, String duplicateText) {
         boolean rsl = true;
