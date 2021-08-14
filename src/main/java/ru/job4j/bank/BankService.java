@@ -8,9 +8,11 @@ import java.util.Map;
 /**
  /* Класс BankService реализует банковский сервис 1) добавление функционала (#92)
  * 2) подчислил код в методах: addUser(), addAccount(), findByRequisite(), transferMoney() (#93)
+ * 3) в методе addAccount() добавил проверку существования пользователя, убрал users.put(user, userAccountAll); (#94)
+ * тк account уже добавлен к счетам пользователя, в методе transferMoney() поменял булеву логику с ИЛИ (||) на И (&&)
  * @author Sergei Begletsov
  * @since 14.08.2021
- * @version 2
+ * @version 3
  */
 
 public class BankService {
@@ -37,17 +39,19 @@ public class BankService {
         //1. Находим пользователя по паспорту
         User user = findByPassport(passport);
 
-        //2. Получаем все счета с реквизитами пользователя
-        List<Account> listAccountsUser = users.get(user);
+        //2. Проверяем, что пользователь существует (найден)
+        if (user != null) {
+            //3. Получаем все счета с реквизитами пользователя
+            List<Account> listAccountsUser = users.get(user);
 
-        //3. Проверяем, что у пользователя есть какие-то счета (не равно null)
-        if (listAccountsUser != null) {
+            //4. Проверяем, что у пользователя есть какие-то счета (не равно null)
+            if (listAccountsUser != null) {
 
-            //4. Есть счет у пользователя?
-            if (!listAccountsUser.contains(account)) {
-                //4.1 Нет, счета пользователя не найден -> добавляем его
-                listAccountsUser.add(account);
-                users.put(user, listAccountsUser);
+                //5. Есть счет у пользователя?
+                if (!listAccountsUser.contains(account)) {
+                    //5.1 Нет, счета пользователя не найден -> добавляем его
+                    listAccountsUser.add(account);
+                }
             }
         }
     }
@@ -117,7 +121,7 @@ public class BankService {
         //2.1 Существует счет, с коротого осуществяется перевод?
         //2.2 Существует счет,  на который осуществяется перевод?
         //2.3 Денег на счете достаточно?
-        if (accountFrom != null || accountTo != null || accountFrom.getBalance() >= amount) {
+        if (accountFrom != null && accountTo != null && accountFrom.getBalance() >= amount) {
             //3.1 Да, все ОК. Делаем перевод денег со счета -> на счет
             accountFrom.setBalance(accountFrom.getBalance() - amount);
             accountTo.setBalance(accountTo.getBalance() + amount);

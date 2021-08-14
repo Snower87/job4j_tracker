@@ -29,7 +29,6 @@ public class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        double ddd = bank.findByRequisite("3434", "5546").getBalance();
         assertThat(bank.findByRequisite("3434", "5546").getBalance(), is(150D));
     }
 
