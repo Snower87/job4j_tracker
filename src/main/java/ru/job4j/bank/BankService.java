@@ -7,9 +7,10 @@ import java.util.Map;
 
 /**
  /* Класс BankService реализует банковский сервис 1) добавление функционала (#92)
+ * 2) подчислил код в методах: addUser(), addAccount(), findByRequisite(), transferMoney() (#93)
  * @author Sergei Begletsov
  * @since 14.08.2021
- * @version 1
+ * @version 2
  */
 
 public class BankService {
@@ -24,9 +25,7 @@ public class BankService {
      */
     public void addUser(User user) {
         //если пользователь не найден, то добавляем его
-        if (!users.containsKey(user)) {
-            users.put(user, new ArrayList<Account>());
-        }
+        users.putIfAbsent(user, new ArrayList<Account>());
     }
 
     /**
@@ -38,25 +37,18 @@ public class BankService {
         //1. Находим пользователя по паспорту
         User user = findByPassport(passport);
 
-        //2. После этого мы получим список всех счетов пользователя и добавим новый счет к ним.
-        // В этом методе должна быть проверка, что такого счета у пользователя еще нет.
-
         //2. Получаем все счета с реквизитами пользователя
         List<Account> listAccountsUser = users.get(user);
 
-        //3. Проверяем если такой счет уже
-        boolean exist = false; //не существует
-        for (Account nextAccount: listAccountsUser) {
-            if (nextAccount.equals(account)) {
-                //3.1 Аккаунт пользователя найден - не добавляем
-                exist = true;
-            }
-        }
+        //3. Проверяем, что у пользователя есть какие-то счета (не равно null)
+        if (listAccountsUser != null) {
 
-        //3.2 Аккаунт пользователя не найден
-        if (!exist) {
-            listAccountsUser.add(account);
-            users.put(user, listAccountsUser);
+            //4. Есть счет у пользователя?
+            if (!listAccountsUser.contains(account)) {
+                //4.1 Нет, счета пользователя не найден -> добавляем его
+                listAccountsUser.add(account);
+                users.put(user, listAccountsUser);
+            }
         }
     }
 
@@ -78,19 +70,30 @@ public class BankService {
      * Поиск пользователя по реквизитам
      * @param passport паспорт пользователя
      * @param requisite счет пользователя
-     * @return
+     * @return аккаунт Account пользователя, если поиск по реквизитам прошел успешно, если нет - null
      */
     public Account findByRequisite(String passport, String requisite) {
-        for (User user: users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                List<Account> listAccountsUser = users.get(user);
-                for (int index = 0; index < listAccountsUser.size(); index++) {
-                    if (listAccountsUser.get(index).getRequisite().equals(requisite)) {
-                        return listAccountsUser.get(index);
-                    }
+        //1. Ищем пользователя по паспорту
+        User findUser = findByPassport(passport);
+
+        //2. Пользователь найден?
+        if (findUser != null) {
+            //2.1 Да, пользователь найден
+
+            //3. Получаем все счета с реквизитами пользователя
+            List<Account> listAccountsUser = users.get(findUser);
+
+            //4. Пробегаемся по всем счетам пользователя
+            for (Account account : listAccountsUser) {
+                //5. Ищем необходимые ревизиты пользователя
+                if (account.getRequisite().equals(requisite)) {
+                    //5.1 Возвращаем аккаунт пользователя
+                    return account;
                 }
             }
         }
+
+            //2.2 Нет, пользователь не найлен
         return null;
     }
 
@@ -101,48 +104,27 @@ public class BankService {
      * @param destPassport паспорт пользователя, кому делают перевод (<<--)
      * @param destRequisite счет пользователя, кому делают перевод (<<--)
      * @param amount кол-во денег
-     * @return
+     * @return true - перевод успешно прошел, false - перевод не прошел
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        //1. Поиск пользователей
-        User userFrom = findByPassport(srcPassport);
-        User userTo   = findByPassport(destPassport);
-
-        //2. Получаем все счета с реквизитами пользователей
-        List<Account> alldAccountUserFrom = users.get(userFrom);
-        List<Account> alldAccountUserTo   = users.get(userTo);
-
-        //3. Ищем конкретные счета откуда и куда будут деньги переводиться
+        //1. Ищем конкретные счета откуда и куда будут деньги переводиться
         Account accountFrom = findByRequisite(srcPassport, srcRequisite);
         Account accountTo   = findByRequisite(destPassport, destRequisite);
 
-        //4. Ищем индекс в списке этих счетов
-        int indexAccountFrom = alldAccountUserFrom.indexOf(accountFrom);
-        int indexAccountTo   = alldAccountUserFrom.indexOf(accountTo);
-
-        //5. Проверки:
-        //5.1. Проверка существования счета с коротого перевод осуществяется
-        if (accountFrom == null) {
-            return rsl;
+        //2. Проверка существования:
+        //2.1 Существует счет, с коротого осуществяется перевод?
+        //2.2 Существует счет,  на который осуществяется перевод?
+        //2.3 Денег на счете достаточно?
+        if (accountFrom != null || accountTo != null || accountFrom.getBalance() >= amount) {
+            //3.1 Да, все ОК. Делаем перевод денег со счета -> на счет
+            accountFrom.setBalance(accountFrom.getBalance() - amount);
+            accountTo.setBalance(accountTo.getBalance() + amount);
+            rsl = true;
         }
 
-        //5.2. Проверка существования счета на который перевод осуществяется
-        if (accountTo == null) {
-            return rsl;
-        }
-
-        //5.3 Проверка, что денег на счете достаточно
-        if (accountFrom.getBalance() < amount) {
-            return rsl;
-        }
-
-        //6. Делаем перевод денег со счета -> на счет
-        accountFrom.setBalance(accountFrom.getBalance() - amount);
-        accountTo.setBalance(accountTo.getBalance() + amount);
-        rsl = true;
-
+        //3.2 Нет, не ОК. Перевод денег не состоялся (см. п.2.1 - 2.3)
         return rsl;
     }
 }
