@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * @Раздел Блок 3. Collections. Lite / 4. Сортировка
+ * @Задание 0. Сортировка. [#10096 #23679] (ver.5) (#95)
+ * @Описание 1. Создайте для модели данных ru.job4j.tracker.Item компаратор, который сортирует данные (id) по возрастанию.
+ * 2. Загрузите код в github. Оставьте ссылку на коммит.
+ *
  * @Раздел Блок 2. ООП / 3. Инкапсуляция
  * @Задание 9. toString. [#310018] (ver.4)
  * @Описание 1. В классе ru.job4j.tracker.Item сгенерируйте переопределенный метод toString(). При этом надо сохранить
@@ -38,10 +43,10 @@ import java.time.format.DateTimeFormatter;
  * 3. Загрузите код в github. Оставьте ссылку на коммит.
  * @author Sergei Begletsov
  * @since 17.05.2021
- * @version 4
+ * @version 5
  */
 
-public class Item {
+public class Item implements Comparable<Item> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
     //1. Поля
@@ -90,5 +95,10 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", created=" + created.format(FORMATTER) +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Item another) {
+        return Integer.compare(id, another.getId());
     }
 }
