@@ -63,4 +63,21 @@ public class LexSortTest {
         Arrays.sort(input, new LexSort());
         assertThat(input, is(out));
     }
+
+    @Test
+    public void sortNum0and55and12() {
+        String[] input = {
+                "0. Task.",
+                "55. Task.",
+                "12. Task."
+        };
+        String[] out = {
+                "0. Task.",
+                "12. Task.",
+                "55. Task."
+        };
+
+        Arrays.sort(input, new LexSort());
+        assertThat(input, is(out));
+    }
 }

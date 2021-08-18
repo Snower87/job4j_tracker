@@ -87,4 +87,14 @@ public class StringCompareTest {
         );
         assertThat(rst, is(0));
     }
+
+    @Test
+    public void whenAllStringIsNullResultShouldZeroVer2() {
+        StringCompare compare = new StringCompare();
+        int rst = compare.compare(
+                "Popov",
+                ""
+        );
+        assertThat(rst, greaterThan(0));
+    }
 }
