@@ -57,4 +57,34 @@ public class StringCompareTest {
         );
         assertThat(rst, lessThan(0));
     }
+
+    @Test
+    public void whenLeftStringIsNullThanResultShouldBeNegative(){
+        StringCompare compare = new StringCompare();
+        int rst = compare.compare(
+                "",
+                "Petrov"
+        );
+        assertThat(rst, lessThan(0));
+    }
+
+    @Test
+    public void whenRightStringIsNullThanResultShouldPositive(){
+        StringCompare compare = new StringCompare();
+        int rst = compare.compare(
+                "Petrov",
+                ""
+        );
+        assertThat(rst, greaterThan(0));
+    }
+
+    @Test
+    public void whenAllStringIsNullResultShouldZero(){
+        StringCompare compare = new StringCompare();
+        int rst = compare.compare(
+                "",
+                ""
+        );
+        assertThat(rst, is(0));
+    }
 }
