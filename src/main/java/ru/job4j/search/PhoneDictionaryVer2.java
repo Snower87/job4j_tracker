@@ -5,10 +5,10 @@ import java.util.function.Predicate;
 
 /**
  * Class PhoneDictionaryVer2 практика работы с функциями высшего порядка (зависят от других функций)
- * 1) создание класса (#112)
+ * 1) создание класса (#112) 2) рефакторинг через ФИ, создание объединяющего 5-го Predicate (#113)
  * @author Sergei Begletsov
  * @since 29.08.2021
- * @version 1
+ * @version 2
  */
 
 public class PhoneDictionaryVer2 {
@@ -33,6 +33,7 @@ public class PhoneDictionaryVer2 {
             Predicate<Person> compSurName = (person) -> person.getSurname().contains(key);
             Predicate<Person> compPhone   = (person) -> person.getPhone().contains(key);
             Predicate<Person> compAddress = (person) -> person.getAddress().contains(key);
+            Predicate<Person> compParam   = compName.or(compSurName).or(compPhone).or(compAddress);
 
             //было:
             //1 вариант (старый)
@@ -44,7 +45,7 @@ public class PhoneDictionaryVer2 {
             */
             //стало:
             //2 вариант (новый)
-            if (compName.or(compSurName).or(compPhone).or(compAddress).test(name)) {
+            if (compParam.test(name)) {
                 rsl = true;
             }
             return rsl;
