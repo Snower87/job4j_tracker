@@ -96,7 +96,7 @@ public class SearchFolderTest {
                 new Folder("Image1", 10),
                 new Folder("Image2", 11)
         );
-        Predicate<Folder> pred = f -> !f.getName().contains("123") && f.getSize() < 12 ;
+        Predicate<Folder> pred = f -> !f.getName().contains("123") && f.getSize() < 12;
         List<Folder> rsl = SearchFolder.filter(list, pred);
         assertThat(rsl, is(expected));
     }
