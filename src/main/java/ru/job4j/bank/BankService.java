@@ -10,9 +10,10 @@ import java.util.Map;
  * 2) подчислил код в методах: addUser(), addAccount(), findByRequisite(), transferMoney() (#93)
  * 3) в методе addAccount() добавил проверку существования пользователя, убрал users.put(user, userAccountAll); (#94)
  * тк account уже добавлен к счетам пользователя, в методе transferMoney() поменял булеву логику с ИЛИ (||) на И (&&)
+ * 4) передедал методы поиска по паспорту и реквизитам на использование Stream API (#124)
  * @author Sergei Begletsov
  * @since 14.08.2021
- * @version 3
+ * @version 4
  */
 
 public class BankService {
@@ -62,12 +63,10 @@ public class BankService {
      * @return пользователя User при успешном поиске, null - если пользователя не нашли
      */
     public User findByPassport(String passport) {
-        for (User user: users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                return user;
-            }
-        }
-        return null;
+        return users.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -87,14 +86,13 @@ public class BankService {
             //3. Получаем все счета с реквизитами пользователя
             List<Account> listAccountsUser = users.get(findUser);
 
-            //4. Пробегаемся по всем счетам пользователя
-            for (Account account : listAccountsUser) {
-                //5. Ищем необходимые ревизиты пользователя
-                if (account.getRequisite().equals(requisite)) {
-                    //5.1 Возвращаем аккаунт пользователя
-                    return account;
-                }
-            }
+            //4. Пробегаемся по всем счетам пользователя,
+            //   отфильтровываем по реквизитам пользователя,
+            //   возвращаем аккаунт пользователя при нахождении
+            return listAccountsUser.stream()
+                    .filter(account -> account.getRequisite().equals(requisite))
+                    .findFirst()
+                    .get();
         }
 
             //2.2 Нет, пользователь не найлен
