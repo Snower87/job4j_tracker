@@ -1,13 +1,14 @@
 package ru.job4j.map;
 
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Класс Card описывает колоду карт
- * 1) создание класса (#125)
+ * 1) создание класса (#125) 2) создание объектов типа Card в потоке
  * @author Sergei Begletsov
  * @since 07.09.2021
- * @version 1
+ * @version 2
  */
 
 public class Card {
@@ -35,8 +36,9 @@ public class Card {
         //2. Вывод геренации колоды карт
         Stream.of(Suit.values())
                 .flatMap(suit -> Stream.of(Value.values())
-                            .map(value -> suit + ": " + value))
-                .forEach(System.out::println);
+                            .map(value -> new Card(suit, value)))
+                .collect(Collectors.toList())
+                .forEach(card -> System.out.println(card.suit + ": " + card.value));
     }
 }
 
