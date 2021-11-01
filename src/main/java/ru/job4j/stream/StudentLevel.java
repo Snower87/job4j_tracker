@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 /**
  * Класс-сервис StudentLevel получает список студентов по уровню проходного балла
- * 1) создание класса (#133)
+ * 1) создание класса (#133) 2) изменил сортировку по имени -> на проходной балл (по убыванию) (#134)
  * @author Sergei Begletsov
  * @since 01.11.2021
- * @version 1
+ * @version 2
  */
 
 public class StudentLevel {
@@ -23,7 +23,8 @@ public class StudentLevel {
     public static List<Student> levelOf(List<Student> students, int bound) {
         return students.stream()
                 .filter(flt -> Objects.nonNull(flt))
-                .sorted((left, right) -> left.getSurname().compareTo(right.getSurname()))
+                /*.filter(flt -> flt != null)*/
+                .sorted((left, right) -> Integer.compare(right.getScore(), left.getScore()))
                 .takeWhile(st -> st.getScore() > bound)
                 .collect(Collectors.toList());
     }
