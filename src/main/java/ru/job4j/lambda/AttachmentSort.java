@@ -25,8 +25,8 @@ public class AttachmentSort {
                 return left.getSize() - right.getSize();
             }
         };
-        attachments.sort(comparatorIncSize); //Вариант 1
-        Collections.sort(attachments, comparatorIncSize); //Вариант 2
+        attachments.sort(comparatorIncSize);
+        Collections.sort(attachments, comparatorIncSize);
         System.out.println(attachments);
 
         Comparator<Attachment> comparatorDecSize = new Comparator<Attachment>() {

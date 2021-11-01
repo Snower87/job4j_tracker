@@ -57,7 +57,6 @@ public class ProfilesTest {
 
     @Test
     public void whenCollect2UniqueAddrAndSortedItFromListWith4Profiles() {
-        //1. Формирование входных значений
         List<Profile> profileList = new ArrayList<>();
         Address addrVasia = new Address("Saint-Peterburg", "Morskaya", 14, 35);
         Profile vasia = new Profile(addrVasia);
