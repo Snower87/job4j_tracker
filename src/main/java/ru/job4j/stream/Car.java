@@ -2,14 +2,13 @@ package ru.job4j.stream;
 
 /**
  * Класс Car пример создания класса через паттерн строитель (builder)
- * 1) создание класса (#126)
+ * 1) создание класса (#126) 2) убрал поле brand из класса (#131)
  * @author Sergei Begletsov
  * @since 12.09.2021
- * @version 1
+ * @version 2
  */
 
 public class Car {
-    private final String brand = "Chevrolet";
     private Model model;
     private Color color;
     private EquipmentConfiguration equipment;
@@ -86,8 +85,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "brand='" + brand + '\'' +
-                ", model=" + model +
+                "model=" + model +
                 ", color=" + color +
                 ", equipment=" + equipment +
                 ", wheels=" + wheels +
