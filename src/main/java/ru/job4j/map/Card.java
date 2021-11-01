@@ -5,10 +5,11 @@ import java.util.stream.Stream;
 
 /**
  * Класс Card описывает колоду карт
- * 1) создание класса (#125) 2) создание объектов типа Card в потоке (№127)
+ * 1) создание класса (#125) 2) создание объектов типа Card в потоке (#127)
+ * 3) commit для закрытия задачи (#130)
  * @author Sergei Begletsov
  * @since 07.09.2021
- * @version 2
+ * @version 3
  */
 
 public class Card {
