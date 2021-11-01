@@ -6,9 +6,10 @@ import java.util.function.Predicate;
 /**
  * Class PhoneDictionaryVer2 практика работы с функциями высшего порядка (зависят от других функций)
  * 1) создание класса (#112) 2) рефакторинг через ФИ, создание объединяющего 5-го Predicate (#113)
+ * 3) рефакторинг, перевод пар-ов на тип var (#136)
  * @author Sergei Begletsov
  * @since 29.08.2021
- * @version 2
+ * @version 3
  */
 
 public class PhoneDictionaryVer2 {
@@ -26,7 +27,7 @@ public class PhoneDictionaryVer2 {
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
         Predicate<Person> combine = (name) -> {
-            boolean rsl = false;
+            var rsl = false;
             Predicate<Person> compName    = (person) -> person.getName().contains(key);
             Predicate<Person> compSurName = (person) -> person.getSurname().contains(key);
             Predicate<Person> compPhone   = (person) -> person.getPhone().contains(key);
@@ -39,7 +40,7 @@ public class PhoneDictionaryVer2 {
             return rsl;
         };
 
-        for (Person person: persons) {
+        for (var person: persons) {
             if (combine.test(person)) {
                 result.add(person);
             }
