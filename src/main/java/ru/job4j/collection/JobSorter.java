@@ -34,7 +34,6 @@ public class JobSorter {
                 new Job("Fix bugs", 0),
                 new Job("Fix bugs", 1),
                 new Job("Impl task", 2)
-                //new Job("Reboot server", 3)
         );
         System.out.println();
         System.out.println("jobs2compare (до сортировки):" + jobs2compare);

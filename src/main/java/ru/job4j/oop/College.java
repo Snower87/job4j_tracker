@@ -15,13 +15,9 @@ package ru.job4j.oop;
 
 public class College {
     public static void main(String[] args) {
-        //создаем объект класса Freshman
         Freshman freshman = new Freshman();
-        // Приведение типа за счет <ПОВЫШЕНИЯ> по иерархии.
-        // Приведение к типу родителя Student
         Student student =  freshman;
         Student student2 = new Freshman();
-        // Приведение к типу родителя Object
         Object obj = freshman;
     }
 }

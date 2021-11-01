@@ -52,13 +52,9 @@ public class Point {
      * @param z координата z
      */
     public Point(int x, int y, int z) {
-        //Вариант №1
         this.x = x;
         this.y = y;
         this.z = z;
-        //Вариант №2
-        //new Point(x, y);
-        //this.z = z;
     }
 
     public double distance(Point that) {

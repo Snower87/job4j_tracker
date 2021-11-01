@@ -50,7 +50,6 @@ public class FI {
                 new Attachment("image 3", 120),
                 new Attachment("image 2", 23)
         };
-        //1. Реализация сортироки (по возрастанию) через анонимный класс Comparator
         Comparator<Attachment> compAscBySize = new Comparator<Attachment>() {
             @Override
             public int compare(Attachment att1, Attachment att2) {
@@ -62,7 +61,6 @@ public class FI {
             System.out.println(att);
         }
 
-        //2. Реализация сортироки (по убыванию) через лямбда-выражение
         Comparator<Attachment> compDescBySizeLambda = (att1, att2) -> {
             return att2.getSize() - att1.getSize();
         };
@@ -71,7 +69,6 @@ public class FI {
             System.out.println(att);
         }
 
-        //3. Реализация сортироки (по убыванию) через лямбда-выражение
         List<String> lists = Arrays.asList("a123", "a1", "a12", "a12345", "a1234");
         Comparator<String> compAscByTextLength = (att1, att2) -> {
             return att1.length() - att2.length();

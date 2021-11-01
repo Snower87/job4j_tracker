@@ -30,7 +30,6 @@ public class ValidateInput implements Input {
     public int askInt(String question) {
         boolean invalid = true;
         int value = -1;
-        //Вариант №1 - обработка событий через исключение
         do {
             try {
                 value = in.askInt(question);
@@ -38,15 +37,6 @@ public class ValidateInput implements Input {
             } catch (NumberFormatException nfe) {
                 out.println("Please enter validate data again.");
             }
-        //Вариант №2 - проверка входных условий через if + метод isNumber()
-        //do {
-        //    String rsl = in.askStr(question);
-        //    if (!isNumber(rsl)) {
-        //        System.out.println("Please enter validate data again.");
-        //        continue;
-        //    }
-        //    value = Integer.parseInt(rsl);
-        //    invalid = false;
         } while (invalid);
         return value;
     }

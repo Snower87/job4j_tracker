@@ -39,8 +39,7 @@ public class Library {
 
     public static void showBookCleanCodeAsLink(Book[] books, Book book) {
         for (int index = 0; index < books.length; index++) {
-            //   if (books[index] == (book)) { //вариант №1
-            if (books[index].equals(book)) { //вариант №2
+            if (books[index].equals(book)) {
                 System.out.println("Find at link - Successfully");
                 showItemBookByIndex(books, index);
                 System.out.println("index book = " + index + " at massiv Book[]");

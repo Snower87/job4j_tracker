@@ -92,34 +92,26 @@ public class MatchesVer2 {
 
         while (user1.getNumMatches() + user2.getNumMatches() < 11 &&
                 user1.getNumMatches() + user2.getNumMatches() >= 0) {
-            //Ход игрока 1:
-            //1.1) Опрос игрока 1 на правильность введенных данных
             int takeMatchesUser1 = 0;
             while (!user1.isInRange(takeMatchesUser1, 1, 3)) {
                 System.out.println("Ход игрока 1 - " + user1.getName() + ". Сколько возьмете?");
                 takeMatchesUser1 = Integer.parseInt(input.nextLine());
             }
-            //1.2) Увеличиваю кол-во спичек у 1-го игрока
             user1.incNumMatches(takeMatchesUser1);
 
-            //1.3) 1-ый игрок победил?
             if (user1.isWin(user2)) {
-                break;  //-> да, на выход
+                break;
             }
 
-            //Ход игрока 2:
-            //2.1) Опрос игрока 2 на правильность введенных данных
             int takeMatchesUser2 = 0;
             while (!user2.isInRange(takeMatchesUser2, 1, 3)) {
                 System.out.println("Ход игрока 2 - " + user2.getName() + ". Сколько возьмете?");
                 takeMatchesUser2 = Integer.parseInt(input.nextLine());
             }
-            //2.2) Увеличиваю кол-во спичек у 2-го игрока
             user2.incNumMatches(takeMatchesUser2);
 
-            //2.2) 2-ой игрок победил?
             if (user2.isWin(user1)) {
-                break;  //-> да, на выход
+                break;
             }
         }
     }

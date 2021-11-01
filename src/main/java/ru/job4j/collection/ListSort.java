@@ -15,7 +15,6 @@ public class ListSort {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(5, 10, 4, 2, 1);
         System.out.println("Before sort: " + list);
-        //Collections.sort(list, Comparator.reverseOrder());
         Collections.sort(list);
         System.out.println("After sort: " + list);
         Integer first = 1;

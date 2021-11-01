@@ -20,11 +20,6 @@ public class IntegerMatrixToList {
      * @return список чисел Integer
      */
     public static List<Integer> convert(Integer[][] matrix) {
-        //Вариант №1
-        //return Arrays.stream(matrix)
-        //        .flatMap(Stream::of)
-        //        .collect(Collectors.toList());
-        //Вариант №2
         return Stream.of(matrix)
                 .flatMap(Stream::of)
                 .collect(Collectors.toList());

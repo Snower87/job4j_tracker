@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 public class DoubleLoop {
     public static void main(String[] args) {
-        //1. Вариант через for-for
         String[] levels = {"level 1", "level 2", "level 3"};
         String[] tasks = {"task 1", "task 2", "task 3", "task 4"};
         for (String level : levels) {
@@ -22,7 +21,6 @@ public class DoubleLoop {
         }
         System.out.println();
 
-        //2. Вариант через stream
         Stream.of(levels)
                 .flatMap(level -> Stream.of(tasks)
                        .map(task -> level + " " + task))

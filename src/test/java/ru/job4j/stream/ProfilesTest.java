@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 public class ProfilesTest {
     @Test
     public void collect7AddrFromListProfiles() {
-        //1. Формирование входных значений
         Address addrVasia = new Address("Saint-Peterburg", "Morskaya", 14, 35);
         Address addrSergey = new Address("Omsk", "Lenina", 13, 34);
         Address addrDima = new Address("Petrozavodsk", "Ilicha", 62, 33);
@@ -28,7 +27,6 @@ public class ProfilesTest {
                 new Profile(addrJenia)
         );
 
-        //2. Ожидаемый список адресов на выходе
         List<Address> expectedAddress = Arrays.asList(
                 addrVasia,
                 addrSergey,
@@ -38,13 +36,11 @@ public class ProfilesTest {
                 addrJenia
         );
 
-        //3. Выдать ошибку, если не равны
         assertEquals(expectedAddress, Profiles.collect(profiles));
     }
 
     @Test
     public void whenCollect1UniqueAddrFromListWith3Profiles() {
-        //1. Формирование входных значений
         List<Profile> profileList = new ArrayList<>();
         Address addrVasia = new Address("Saint-Peterburg", "Morskaya", 14, 35);
         Profile vasia = new Profile(addrVasia);
@@ -52,12 +48,10 @@ public class ProfilesTest {
         profileList.add(vasia);
         profileList.add(vasia);
 
-        //2. Ожидаемый список адресов на выходе
         List<Address> expectedAddress = Arrays.asList(
                 addrVasia
         );
 
-        //3. Выдать ошибку, если не равны
         assertEquals(expectedAddress, Profiles.collectUnique(profileList));
     }
 
@@ -74,19 +68,16 @@ public class ProfilesTest {
         profileList.add(vasia);
         profileList.add(petya);
 
-        //2. Ожидаемый список адресов на выходе
         List<Address> expectedAddress = Arrays.asList(
                 addrPetya,
                 addrVasia
         );
 
-        //3. Выдать ошибку, если не равны
         assertEquals(expectedAddress, Profiles.collectUnique(profileList));
     }
 
     @Test
     public void whenCollect5UniqueAddrFromListWith5Profiles() {
-        //1. Формирование входных значений
         List<Profile> profileList2 = new ArrayList<>();
         Address addrVasia = new Address("Saint-Peterburg", "Morskaya", 14, 35);
         Profile vasia = new Profile(addrVasia);
@@ -104,7 +95,6 @@ public class ProfilesTest {
         Profile petya = new Profile(addrPetya);
         profileList2.add(petya);
 
-        //2. Ожидаемый список адресов на выходе
         List<Address> expectedAddress = Arrays.asList(
                 addrPetya,
                 addrSergey,
@@ -113,13 +103,11 @@ public class ProfilesTest {
                 addrMarat
         );
 
-        //3. Выдать ошибку, если не равны
         assertEquals(expectedAddress, Profiles.collectUnique(profileList2));
     }
 
     @Test
     public void whenCollect3UniqueAddrFromListWith7Profiles() {
-        //1. Формирование входных значений
         List<Profile> profileList2 = new ArrayList<>();
         Address addrVasia = new Address("Saint-Peterburg", "Morskaya", 14, 35);
         Profile vasia = new Profile(addrVasia);
@@ -135,14 +123,12 @@ public class ProfilesTest {
         profileList2.add(sergey);
         profileList2.add(dima);
 
-        //2. Ожидаемый список адресов на выходе
         List<Address> expectedAddress = Arrays.asList(
                 addrSergey,
                 addrDima,
                 addrVasia
         );
 
-        //3. Выдать ошибку, если не равны
         assertEquals(expectedAddress, Profiles.collectUnique(profileList2));
     }
 }

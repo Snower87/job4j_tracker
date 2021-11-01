@@ -33,17 +33,12 @@ public class UserStore {
      * @throws UserNotFoundException если пользователь не найден
      */
     public static User findUser(User[] users, String login) throws UserNotFoundException {
-        //1. Поиск пользователя
         for (User user : users) {
             if (user.getUsername().equals(login)) {
-                //2. Пользователь найден -> завершение работы,
-                //   возвращаем пользователя
                 return user;
             }
         }
-        //3. Пользователь не найден - кидаем прерывание
         throw new UserNotFoundException("User not found");
-        //return null;
     }
 
     /**
@@ -53,16 +48,12 @@ public class UserStore {
      * @throws UserInvalidException если пользователь невалиден
      */
     public static boolean validate(User user) throws UserInvalidException {
-        //1. Проверка длины и поля valid на достоверность
         if (user.getUsername().length() <= 3) {
-            //2.1 Имя пользователя не достоверно -> кидаем прерывание
             throw new UserInvalidException("User name is invalid");
         }
         if (!user.isValid()) {
-            //2.2 Пользователь не доступен -> кидаем прерывание
             throw new UserInvalidException("User not available");
         }
-            //3. С пользователем все хорошо = проверен (валиден)
             return true;
     }
 

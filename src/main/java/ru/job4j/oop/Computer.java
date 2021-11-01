@@ -16,12 +16,10 @@ package ru.job4j.oop;
  */
 
 public class Computer {
-    //1. Поля
     private boolean multiMonitor;
     private int ssd;
     private String cpu;
 
-    //2. Конструктор
     public Computer() {
     }
 
@@ -31,13 +29,11 @@ public class Computer {
         this.cpu = cpu;
     }
 
-    //перегрузка конструктора
     public Computer(int ssd, String cpu) {
         this.ssd = ssd;
         this.cpu = cpu;
     }
 
-    //3. Методы
     public void printInfo() {
         System.out.println("Много мониторов: " + multiMonitor);
         System.out.println("SSD: " + ssd + " GB");

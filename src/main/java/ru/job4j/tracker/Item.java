@@ -49,12 +49,10 @@ import java.time.format.DateTimeFormatter;
 public class Item implements Comparable<Item> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
-    //1. Поля
     private int id;
     private String name;
     private LocalDateTime created = LocalDateTime.now();
 
-    //2. Конструкторы
     public Item() {
     }
 
@@ -67,7 +65,6 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
-    //3. Методы
     public int getId() {
         return id;
     }

@@ -15,33 +15,17 @@ public class ProductContains {
     public static void main(String[] args) {
         Product first = new Product("Milk", 100);
         Product second = new Product("Milk", 100);
-        //boolean eq = first == second; // -> false, тк == используется только для примитивного типа данных
-        //boolean eq = first.equals(second); // -> true, только после переопределения методов equals и hashCode
-        boolean eq = first.hashCode() == second.hashCode(); // -> true, только после переопределения методов equals, hashCode
+        boolean eq = first.hashCode() == second.hashCode();
         System.out.println(eq);
 
         boolean eq1 = first == second;
-        System.out.println("1) " + eq1); //false - до переопределения
+        System.out.println("1) " + eq1);
         boolean eq2 = first.equals(second);
-        System.out.println("2) " + eq2); //false
+        System.out.println("2) " + eq2);
         boolean eq3 = first.equals(first);
-        System.out.println("3) " + eq3); //false
-        //До перегрузки метода equals() класса Product
-        //1) false
-        //2) false
-        //3) true
-        //После перегрузки метода equals() класса Product
-        //1) false
-        //2) true (+) два разных объекта равны, как и должно быть
-        //3) true
+        System.out.println("3) " + eq3);
 
         System.out.println(first.hashCode());
         System.out.println(second.hashCode());
-        //До перегрузки метода hashCode() класса Product
-        //хэк-код объекта first равен  21499129
-        //хэк-код объекта second равен 21589407
-        //До перегрузки метода hashCode() класса Product
-        //хэк-код объекта first равен  74347338
-        //хэк-код объекта second равен 74347338 (+)
     }
 }

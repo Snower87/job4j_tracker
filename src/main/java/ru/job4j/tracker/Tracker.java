@@ -105,9 +105,7 @@ public class Tracker {
      * @param id номер заявки
      */
     public Item findById(int id) {
-        // Находим индекс
         int index = indexOf(id);
-        // Если индекс найден возвращаем item, иначе null
         return index != -1 ? items.get(index) : null;
     }
 
@@ -125,16 +123,10 @@ public class Tracker {
      * @return true - замена успешно прошла, false - не произошла
      */
     public boolean replace(int id, Item item) {
-        //1. Находим индекс ячейки по id
         int index = indexOf(id);
-        //2. Валидация. Проверка входных пар-ов
         boolean res = index != -1;
-        // Если индекс найден, то меняю заявку
         if (res) {
-            //3. Сохраняю старый id заявки
-            //item.setId(items[index].getId()); //было
             item.setId(id);
-            //4. Записываю в найденную ячейку объект item
             items.set(index, item);
         }
         return res;
@@ -146,11 +138,8 @@ public class Tracker {
      * @return true - удаление прошло успешно, false - не произошло
      */
     public boolean delete(int id) {
-        //1. Находим индекс удаляемой ячейки по id
         int index = indexOf(id);
-        //2. Валидация. Проверка входных пар-ов
         boolean res = index != -1;
-        // Если индекс найден, удаляю элемент со сдвигом
         if (res) {
             items.remove(index);
         }

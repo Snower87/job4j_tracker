@@ -19,15 +19,13 @@ public class UsageMap {
         map.put("ivnpoddubnii@yandex.ru", "Ivan Poddubnii");
         map.put("parsentev@yandex.ru", "Petr Arsentev2");
 
-        //Вариант №1. Итерирование и вывод через keySet
         for (String key: map.keySet()) {
             String value = map.get(key);
             System.out.println(key + " = " + value);
         }
         System.out.println();
 
-        //Вариант №2. Итерирование и вывод через метод entrySet()
-        map.remove("parsentev@yandex.ru"); //удаление ключа
+        map.remove("parsentev@yandex.ru");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -35,8 +33,6 @@ public class UsageMap {
         }
         System.out.println();
 
-        //Создание коллекции HashMap:
-        //почта - ключ, ФИО - значение
         HashMap<String, String> postAndName = new HashMap<>();
         postAndName.put("aaa@yandex.ru", "Халкаев Азамир Азизович");
         postAndName.put("about@mail.ru", "mail.ru");

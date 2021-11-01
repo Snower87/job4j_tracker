@@ -16,7 +16,7 @@ public class Reduce {
     private int[] array;
 
     public void to(int[] array) {
-        this.array = array; //<<-- здесь была ошибка
+        this.array = array;
     }
 
     public void print() {

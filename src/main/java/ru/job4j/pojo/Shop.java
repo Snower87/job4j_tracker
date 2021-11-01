@@ -40,46 +40,11 @@ public class Shop {
 
         for (int i = 0; i < products.length; i++) {
             Product product = products[i];
-            /* Проверяем, что объект не равен null. Т.к. у нас массив не заполнен целиком. Чтобы не получить ошибку NPE */
             if (product != null) {
                 System.out.println(product.getName() + " - " + product.getCount());
             }
         }
 
-        //Из репозитория:
-        /*
-        System.out.println();
-        System.out.println("Удаляем значение из ячейки с индексом 1");
-        //удаляем значение из ячейки с индексом 1
-        products[1] = null;
-        for (int i = 0; i < products.length; i++) {
-            Product product = products[i];
-            //проверяем, что объект не равен null. тк у нас массив не заполнен целиком.
-            if (product != null) {
-                System.out.println(product.getName());
-            } else {
-                System.out.println("null");
-            }
-        }
-        System.out.println();
-        System.out.println("Записываем  в ячейку с индексом 1 значение ячейки с индексом 2 и удаляем значение " +
-                "из ячейки с индексом 2");
-        //записываем в ячейку с индексом 1 значение ячейки с индексом 2.
-        products[1] = products[2];
-        //удаляем значение из ячейки с индексом 2.
-        products[2] = null;
-        for (int i = 0; i < products.length; i++) {
-            Product product = products[i];
-            //проверяем, что объект не равен null. так как  у нас массив не заполнен целиком.
-            if (product != null) {
-                System.out.println(product.getName());
-            } else {
-                System.out.println("null");
-            }
-        }
-        */
-
-        //Удаление и сдвиг массива
         System.out.println();
         System.out.println("Using method class Shop - delete():");
         Shop shop = new Shop();
@@ -93,7 +58,6 @@ public class Shop {
             }
         }
 
-        //добавим еще еще элементы и сдвинем
         products[2] = new Product("Apple", 20);
         products[3] = new Product("Orange", 200);
         System.out.println();

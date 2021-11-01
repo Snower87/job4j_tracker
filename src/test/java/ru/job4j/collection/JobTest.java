@@ -10,9 +10,6 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.*;
 
 public class JobTest {
-    //Тесты, проверяющие отдельное поведение компараторов
-    //1. Сортировка <<по имени>>
-    //1.1 Сортировка по возрастанию - сравнивается 1-ый объект со 2-м
     @Test
     public void whenCompatorByNameIncrease() {
         Comparator<Job> cmpNameIncrease = new JobAscByName();
@@ -20,10 +17,9 @@ public class JobTest {
                 new Job("AAAAA", 55),
                 new Job("BBBBB", 55)
         );
-        assertThat(rsl, lessThan(0)); //job1.name - job2.name < 0 --> (-1)
+        assertThat(rsl, lessThan(0));
     }
 
-    //1.2 Сортировка по убыванию - сравнивается 2-ой объект со 1-м
     @Test
     public void whenCompatorByNameDecrease() {
         Comparator<Job> cmpNameDecrease = new JobDescByName();
@@ -31,10 +27,9 @@ public class JobTest {
                 new Job("AAAAA", 55),
                 new Job("BBBBB", 55)
         );
-        assertThat(rsl, greaterThan(0)); //job2.name - job1.name > 0 --> (+1)
+        assertThat(rsl, greaterThan(0));
     }
 
-    //1.3 Сортировка по убыванию - 1-ый объект = 2-му объекту
     @Test
     public void whenCompatorByNameDecreaseAndObject1Equals2() {
         Comparator<Job> cmpNameDecrease = new JobDescByName();
@@ -42,12 +37,9 @@ public class JobTest {
                 new Job("BBBBB", 55),
                 new Job("BBBBB", 55)
         );
-        assertThat(rsl, is(0)); //job2.name - job1.name = 0 --> (0)
+        assertThat(rsl, is(0));
     }
 
-
-    //2. Сортировка <<по приоритету>>
-    //2.1 Сортировка по возрастанию
     @Test
     public void whenCompatorByPriorityIncrease() {
         Comparator<Job> cmpPriorityIncrease = new JobAscByPriority();
@@ -55,10 +47,9 @@ public class JobTest {
                 new Job("AAAAA", 33),
                 new Job("AAAAA", 66)
         );
-        assertThat(rsl, lessThan(0)); //job1.prior - job2.prior = -33 < 0 --> (-1)
+        assertThat(rsl, lessThan(0));
     }
 
-    //2.2 Сортировка по убыванию
     @Test
     public void whenCompatorByPriorityDecrease() {
         Comparator<Job> cmpPriorityDecrease = new JobDescByPriority();
@@ -66,10 +57,9 @@ public class JobTest {
                 new Job("AAAAA", 33),
                 new Job("AAAAA", 66)
         );
-        assertThat(rsl, greaterThan(0)); //job2.prior - job1.prior = 33 > 0 --> (+1)
+        assertThat(rsl, greaterThan(0));
     }
 
-    //2.3 Сортировка по убыванию - 1-ый объект = 2-му объекту
     @Test
     public void whenCompatorByPriorityDecreaseAndObject1Equals2() {
         Comparator<Job> cmpPriorityDecrease = new JobDescByPriority();
@@ -77,12 +67,9 @@ public class JobTest {
                 new Job("AAAAA", 33),
                 new Job("AAAAA", 33)
         );
-        assertThat(rsl, is(0)); //job2.prior - job1.prior = 0 -->> (0)
+        assertThat(rsl, is(0));
     }
 
-    //Тесты, проверяющие поведение комбинированых компараторов
-    //3. Сортировка <<по имени>> --->> потом <<по приоритету>>
-    //3.1 Сортировка по возрастанию
     @Test
     public void whenCompatorByNameAndProrityIncrease() {
         Comparator<Job> cmpNamePriority = new JobAscByName().thenComparing(new JobAscByPriority());
@@ -90,10 +77,9 @@ public class JobTest {
                 new Job("CCCP", 20),
                 new Job("CCCP", 40)
         );
-        assertThat(rsl, lessThan(0)); //job1.prior - job2.prior = - 20 < 0  --> (-1)
+        assertThat(rsl, lessThan(0));
     }
 
-    //3.2 Сортировка по убыванию
     @Test
     public void whenCompatorByNameAndProrityDecrease() {
         Comparator<Job> cmpNamePriority = new JobDescByName().thenComparing(new JobDescByPriority());
@@ -101,10 +87,9 @@ public class JobTest {
                 new Job("EUROPE", 20),
                 new Job("EUROPE", 40)
         );
-        assertThat(rsl, greaterThan(0)); //job2.prior - job1.prior = 20 > 0 --> (+1)
+        assertThat(rsl, greaterThan(0));
     }
 
-    //3.3 Сортировка по возрастанию -  1-ый объект = 2-му объекту
     @Test
     public void whenCompatorByNameAndProrityIncreaseAndObject1Equals2() {
         Comparator<Job> cmpNamePriority = new JobAscByName().thenComparing(new JobAscByPriority());
@@ -112,11 +97,9 @@ public class JobTest {
                 new Job("KAZACHSTAN", 55),
                 new Job("KAZACHSTAN", 55)
         );
-        assertThat(rsl, is(0)); //job1.prior - job2.prior = 0 --> (0)
+        assertThat(rsl, is(0));
     }
 
-    //4. Сортировка <<по приоритету>> --->> потом <<по имени>>
-    //4.1 Сортировка по возрастанию
     @Test
     public void whenCompatorByProrityAndNameIncrease() {
         Comparator<Job> cmpNamePriority = new JobAscByPriority().thenComparing(new JobAscByName());
@@ -124,10 +107,9 @@ public class JobTest {
                 new Job("aaaaaaaa", 100),
                 new Job("bbbbbbbb", 100)
         );
-        assertThat(rsl, lessThan(0)); //job1.name - job2.name < 0 --> (-1)
+        assertThat(rsl, lessThan(0));
     }
 
-    //4.2 Сортировка по убыванию
     @Test
     public void whenCompatorByProrityAndNameDecrease() {
         Comparator<Job> cmpNamePriority = new JobDescByPriority().thenComparing(new JobDescByName());
@@ -135,10 +117,9 @@ public class JobTest {
                 new Job("aaaaaaaa", 100),
                 new Job("bbbbbbbb", 100)
         );
-        assertThat(rsl, greaterThan(0)); //job2.name - job1.name > 0 --> (+1)
+        assertThat(rsl, greaterThan(0));
     }
 
-    //4.3 Сортировка по возрастанию
     @Test
     public void whenCompatorByProrityAndNameIncreaseAndObject1Equals2() {
         Comparator<Job> cmpNamePriority = new JobAscByPriority().thenComparing(new JobAscByName());
@@ -146,6 +127,6 @@ public class JobTest {
                 new Job("aaaaaaaa", 100),
                 new Job("aaaaaaaa", 100)
         );
-        assertThat(rsl, is(0)); //job1.name - job2.name = 0 --> (0)
+        assertThat(rsl, is(0));
     }
 }

@@ -17,9 +17,6 @@ public class AttachmentSort {
                 new Attachment("image 3", 13)
         );
 
-        //Анонимный класс на базе интерфейса java.util.Comparator,
-        //реализующий метод compare(Object obj1, Object obj2)
-        //БЕЗ ОБОБЩЕНИЯ ТИПОВ с сортировкой << по возрастанию >>
         Comparator comparatorIncSize = new Comparator() {
             @Override
             public int compare(Object obj1, Object obj2) {
@@ -32,9 +29,6 @@ public class AttachmentSort {
         Collections.sort(attachments, comparatorIncSize); //Вариант 2
         System.out.println(attachments);
 
-        //Анонимный класс на базе интерфейса java.util.Comparator,
-        //реализующий метод compare(Object obj1, Object obj2)
-        //с обощнением по типу Attachment и сортировкой << по убыванию >>
         Comparator<Attachment> comparatorDecSize = new Comparator<Attachment>() {
             @Override
             public int compare(Attachment obj1, Attachment obj2) {
@@ -44,9 +38,6 @@ public class AttachmentSort {
         attachments.sort(comparatorDecSize);
         System.out.println(attachments);
 
-        //Анонимный класс на базе класса java.util.ArrayList,
-        //реализующий метод add(Object obj)
-        //с обобщением по типу Integer выводом на консоль сообщения о добавлении элемента
         ArrayList<Integer> arrayList = new ArrayList() {
             @Override
             public boolean add(Object obj) {
@@ -56,8 +47,6 @@ public class AttachmentSort {
         };
         arrayList.add(100500);
 
-        //Решение задания:
-        //Сортировка элементов класса Attachment << по возрастанию >> поля (name)
         Comparator<Attachment> comparatorAscByName = new Comparator<Attachment>() {
             @Override
             public int compare(Attachment obj1, Attachment obj2) {
@@ -67,7 +56,6 @@ public class AttachmentSort {
         attachments.sort(comparatorAscByName);
         System.out.println(attachments);
 
-        //Сортировка элементов класса Attachment << по убыванию >> поля (name)
         Comparator<Attachment> comparatorDescByName = new Comparator<Attachment>() {
             @Override
             public int compare(Attachment obj1, Attachment obj2) {

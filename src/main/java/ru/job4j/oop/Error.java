@@ -16,12 +16,10 @@ package ru.job4j.oop;
  */
 
 public class Error {
-    //1. Поля
     private boolean active;
     private int status;
     private String message;
 
-    //2. Конструкторы
     public Error() {
     }
 
@@ -31,7 +29,6 @@ public class Error {
         this.message = message;
     }
 
-    //3. Методы
     public void printInfo() {
         System.out.println("Активна? " + this.active);
         System.out.println("Статус: " + this.status);

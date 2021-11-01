@@ -1,7 +1,7 @@
 package ru.job4j.inheritance;
 
 public class Surgeon extends Doctor {
-    private boolean student; //студент?
+    private boolean student;
     private Pacient[] listPacient;
 
     public void getStudent() {

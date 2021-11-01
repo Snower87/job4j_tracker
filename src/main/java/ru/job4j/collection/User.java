@@ -20,16 +20,10 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User another) {
-        //1. Сравниваю имена 2х пользователей
         int result = this.name.compareTo(another.name);
 
-        //2. Имена пользователей равны?
         if (result == 0) {
-            //2.1 Да, -> сравниваем возраст пользователей
-            //Вариант №1. Сравнение через класс Age
             result = Integer.compare(this.age, another.age);
-            //Вариант №2. Сравнение через разницу возрастов
-            //return this.age - another.age;
         }
         return result;
     }

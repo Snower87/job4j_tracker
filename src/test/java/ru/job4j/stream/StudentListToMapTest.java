@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 public class StudentListToMapTest {
     @Test
     public void whenConvert10StudentListTo10Map() {
-        //1. Входное значение
         List<Student> studentList = List.of(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -25,19 +24,16 @@ public class StudentListToMapTest {
                 new Student("Sasha", 32)
         );
 
-        //2. Ожидаемое значение
         Map<String, Student> expectedList = new LinkedHashMap<>();
         for (int i = 0; i < studentList.size(); i++) {
             expectedList.put(studentList.get(i).getSurname(), studentList.get(i));
         }
 
-        //3. Выдать предупреждение, если не равны
         assertEquals(expectedList, StudentListToMap.convert(studentList));
     }
 
     @Test
     public void whenConvert3StudentWith1DublicateListTo3Map() {
-        //1. Входное значение
         List<Student> studentList = List.of(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -45,19 +41,16 @@ public class StudentListToMapTest {
                 new Student("Anton", 12)
         );
 
-        //2. Ожидаемое значение
         Map<String, Student> expectedList = new LinkedHashMap<>();
         for (int i = 0; i < studentList.size() - 1; i++) {
             expectedList.put(studentList.get(i).getSurname(), studentList.get(i));
         }
 
-        //3. Выдать предупреждение, если не равны
         assertEquals(expectedList, StudentListToMap.convert(studentList));
     }
 
     @Test
     public void whenConvert3StudentWith3DublicateListTo3Map() {
-        //1. Входное значение
         List<Student> studentList = List.of(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -67,13 +60,11 @@ public class StudentListToMapTest {
                 new Student("Anton", 33)
         );
 
-        //2. Ожидаемое значение
         Map<String, Student> expectedList = new LinkedHashMap<>();
         for (int i = 0; i < studentList.size() - 3; i++) {
             expectedList.put(studentList.get(i).getSurname(), studentList.get(i));
         }
 
-        //3. Выдать предупреждение, если не равны
         assertEquals(expectedList, StudentListToMap.convert(studentList));
     }
 }

@@ -24,16 +24,6 @@ public class College {
      * @return возвращает найденного студента или null
      */
     public Student findByAccount(String account) {
-        //было:
-        /*
-        for (Student s : students.keySet()) {
-            if (s.getAccount().equals(account)) {
-                return s;
-            }
-        }
-        return null;
-        */
-        //стало:
         return students.keySet().stream()
                 .filter(student -> student.getAccount().equals(account))
                 .findFirst()
@@ -49,16 +39,6 @@ public class College {
     public Subject findBySubjectName(String account, String name) {
         Student a = findByAccount(account);
         if (a != null) {
-            //было:
-            /*
-            Set<Subject> subjects = students.get(a);
-            for (Subject s : subjects) {
-                if (s.getName().equals(name)) {
-                    return s;
-                }
-            }
-            */
-            //стало:
             return students.get(a).stream()
                     .filter(subject -> subject.getName().equals(name))
                     .findFirst()

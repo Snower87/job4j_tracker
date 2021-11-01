@@ -29,7 +29,6 @@ public class PhoneDictionary {
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
         for (Person person: this.persons) {
-            //поиск по всем полям: "Имя", "Фамилия", "Телефон", "Адрес"
             if (person.getName().contains(key) || person.getSurname().contains(key) ||
                     person.getPhone().contains(key) || person.getAddress().contains(key)) {
                 result.add(person);
@@ -37,7 +36,6 @@ public class PhoneDictionary {
             }
         }
 
-        //если строку не нашли - вывожу сообщение
         if (result.size() == 0) {
             System.out.println("String or substring in the PhoneDictionary not found");
         }

@@ -31,21 +31,6 @@ public class Profiles {
      */
     public static List<Address> collectUnique(List<Profile> profiles) {
         return profiles.stream()
-                //1 Вариант (мой первоначальный)
-                /*
-                .sorted(Comparator.comparing(profile -> profile.getAddress().getCity()))
-                .distinct()
-                .map(el -> el.getAddress())
-                .collect(Collectors.toList());
-                */
-                //2 Вариант (предложение от Стаса)
-                /*
-                .map(Profile::getAddress)
-                .sorted((p1, p2) -> p1.getAddress().getCity().compareTo(p2.getAddress().getCity()))
-                .distinct()
-                .collect(Collectors.toList());
-                */
-                //3 Вариант
                 .map(Profile::getAddress)
                 .sorted(Comparator.comparing(Address::getCity))
                 .distinct()

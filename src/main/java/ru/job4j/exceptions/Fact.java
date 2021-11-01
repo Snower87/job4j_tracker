@@ -14,8 +14,7 @@ package ru.job4j.exceptions;
 
 public class Fact {
     public static void main(String[] args) {
-        System.out.println(new Fact().calc(5)); //вызовет исключение -> IllegalArgumentException
-        //System.out.println(new Fact().calc(-1)); //вызовет исключение -> IllegalArgumentException
+        System.out.println(new Fact().calc(5));
     }
 
     public int calc(int n) {

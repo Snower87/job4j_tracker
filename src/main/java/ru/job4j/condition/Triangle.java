@@ -55,7 +55,6 @@ public class Triangle {
         double c = second.distance(third);
         double p = period(a, b, c);
         if (this.exist(a, b, c)) {
-            // написать формулу для расчета площади треугольника.
             rsl = Math.sqrt(p * (p - a) * (p - c) * (p - b));
         }
         return rsl;

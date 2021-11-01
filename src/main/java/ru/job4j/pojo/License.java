@@ -19,10 +19,10 @@ import java.util.Objects;
  */
 
 public class License {
-    private String owner; //владелец
-    private String model; //марка машины
-    private String code;  //номер машины
-    private Date created; //дата сборки
+    private String owner;
+    private String model;
+    private String code;
+    private Date created;
 
     public String getOwner() {
         return owner;

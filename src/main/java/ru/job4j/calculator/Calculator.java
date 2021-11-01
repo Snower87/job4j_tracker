@@ -15,11 +15,7 @@ public class Calculator {
         return first + second;
     }
 
-    //перегрузка метода
     public double add(double first, double second, double third) {
-        //Вариант №1 сложения
-        //return first + second + third;
-        //Вариант №2 сложения
         return add(first, add(second, third));
     }
 }

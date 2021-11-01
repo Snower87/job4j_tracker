@@ -21,14 +21,12 @@ public class UsageArrayList {
         names.add("Ivan");
         names.add("Stepan");
 
-        //Вариант №1 вывода на консоль (for-each)
         System.out.println("Вариант №1 вывода на консоль:");
         System.out.println("стандартно через цикл for и типу String");
         for (String name: names) {
             System.out.println(name);
         }
 
-        //Вариант №2 вывода на консоль (for-Object)
         System.out.println();
         System.out.println("Вариант №2 вывода на консоль");
         System.out.println("через приведение к типу Object (повышение по иерархии)");
@@ -36,7 +34,6 @@ public class UsageArrayList {
             System.out.println(value);
         }
 
-        //Вариант №3 вывода на консоль (через index)
         System.out.println();
         System.out.println("Вариант №3 вывода на консоль:");
         System.out.println("через метод get() и размер списка size");

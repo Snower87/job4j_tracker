@@ -34,7 +34,6 @@ public class StrategyUsage {
 
     public static void main(String[] args) {
         StrategyUsage usage = new StrategyUsage();
-        //1. Пример работы с методом check() через Predicate (тест)
         System.out.println(
                 "Результат работы: " + usage.check(
                         str -> str.isEmpty(), ""
@@ -51,7 +50,6 @@ public class StrategyUsage {
                 )
         );
 
-        //2. Пример работы с методом transform() через Function (переход T -> R )
         System.out.println(
                 "Строка после преобразования: " + usage.transform(
                         str -> str.toUpperCase(), "aBCdEfghKLmnpRstU"

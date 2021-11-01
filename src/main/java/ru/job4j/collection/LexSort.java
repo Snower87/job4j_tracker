@@ -15,12 +15,9 @@ public class LexSort implements Comparator<String> {
 
     @Override
     public int compare(String left, String right) {
-        //1. Парсинг строки через метод split()
         String[] intLeft  = left.split(". ", 2);
         String[] intRight = right.split(". ", 2);
 
-        //2. Возвращаю результат сравнения 2х чисел,
-        //   которые находятся в начале массива
         return Integer.compare(Integer.parseInt(intLeft[0]), Integer.parseInt(intRight[0]));
     }
 }

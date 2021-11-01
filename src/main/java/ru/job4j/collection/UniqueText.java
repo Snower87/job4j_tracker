@@ -19,11 +19,9 @@ public class UniqueText {
      */
     public static boolean isEquals(String originText, String duplicateText) {
         boolean rsl = true;
-        //1. Преобразуем строку в массив слов через метод split()
         String[] origin = originText.split(" ");
         String[] text = duplicateText.split(" ");
-        //2. Добавляем новые слова (уникальные)
-        //   в check (HashSet)
+
         HashSet<String> check = new HashSet<>();
         for (String str: origin) {
             check.add(str);

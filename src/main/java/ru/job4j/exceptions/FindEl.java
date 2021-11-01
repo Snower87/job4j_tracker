@@ -48,7 +48,6 @@ public class FindEl {
      * @throws ElementAbuseException выкидывает, если запрещенный ключ найден
      */
     public static boolean sent(String value, String[] abuses) throws ElementAbuseException {
-        // if contains throw ElementAbuseException
         for (int index = 0; index < abuses.length; index++) {
             if (value.equals(abuses[index])) {
                 throw new ElementAbuseException("Abuse is found");
@@ -58,7 +57,6 @@ public class FindEl {
     }
 
     public static void process(String[] values, String key, String[] abuses) {
-        //Вариант №1 как надо отлавливать прерывания
         try {
             if (indexOf(values, key) != -1) {
                 sent(key, abuses);
@@ -66,26 +64,12 @@ public class FindEl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*
-        //Вариант №2 отлавливания с множественных catch
-        } catch (ElementAbuseException ea) {
-            ea.printStackTrace();
-        } catch (ElementNotFoundException en) {
-            en.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } catch (Throwable th) {  //Отлавливает любые нестандартные ситуации в нашей программе
-            th.printStackTrace(); //Эти исключения ловить через блок try-catch не надо
-        }
-        */
     }
 
     public static void main(String[] args) {
         String[] str = new String[] {"Сидела", " кукушка", " на", " ветке ", "№1", " и", " читала", " строку ", "№2",
                                      " в", " книге ", "№3"};
-        //String keyWord = str[4]; //-> ru.job4j.ex.ElementAbuseException: Abuse is found
-        //String keyWord = "раздватричетырепять"; //-> ru.job4j.ex.ElementNotFoundException: Keyword index not found
-        String keyWord = str[3]; //-> ru.job4j.ex.ElementNotFoundException: Keyword index not found
+        String keyWord = str[3];
         String[] abuses = new String[] {"#33", "str", "test_init", "№1"};
         process(str, keyWord, abuses);
     }

@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 public class SchoolTest {
     @Test
     public void whenCollectStudentClass10A() {
-        //1. Входные данные, список учеников школы
         List<Student> listStudent = Arrays.asList(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -27,10 +26,8 @@ public class SchoolTest {
                 new Student("Sasha", 32)
         );
         School sc = new School();
-        //2. Получаем список учеников класса А:
         Predicate<Student> compClassA = (student -> student.getScore() >= 70);
         List<Student> studentClassA = sc.collect(listStudent, compClassA);
-        //3. Ожидаемый результат
         List<Student> expectedStudent = Arrays.asList(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -42,7 +39,6 @@ public class SchoolTest {
 
     @Test
     public void whenCollectStudentClass10B() {
-        //1. Входные данные, список учеников школы
         List<Student> listStudent = Arrays.asList(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -56,10 +52,8 @@ public class SchoolTest {
                 new Student("Sasha", 32)
         );
         School sc = new School();
-        //2. Получаем список учеников класса B:
         Predicate<Student> compClassB = (student -> student.getScore() >= 50 & student.getScore() < 70);
         List<Student> studentClassB = sc.collect(listStudent, compClassB);
-        //3. Ожидаемый результат
         List<Student> expectedStudent = Arrays.asList(
                 new Student("Damir", 69),
                 new Student("Jora", 60)
@@ -69,7 +63,6 @@ public class SchoolTest {
 
     @Test
     public void whenCollectStudentClass10C() {
-        //1. Входные данные, список учеников школы
         List<Student> listStudent = Arrays.asList(
                 new Student("Anton", 98),
                 new Student("Vova", 82),
@@ -83,10 +76,8 @@ public class SchoolTest {
                 new Student("Sasha", 32)
         );
         School sc = new School();
-        //2. Получаем список учеников класса C:
         Predicate<Student> compClassC = (student -> student.getScore() < 50);
         List<Student> studentClassC = sc.collect(listStudent, compClassC);
-        //3. Ожидаемый результат
         List<Student> expectedStudent = Arrays.asList(
                 new Student("Kirill", 49),
                 new Student("Leonid", 46),

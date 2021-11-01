@@ -15,13 +15,11 @@ public class JdbcConfig {
         if (url == null) {
             throw new UserInputException("Url could not be null");
         }
-        /*load jdbc*/
     }
 
     public static void main(String[] args) {
         try {
             load("jdbc://localhost:8080");
-            //load(null);
         } catch (UserInputException ex) {
             ex.printStackTrace();
         }

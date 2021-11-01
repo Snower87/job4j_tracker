@@ -40,16 +40,11 @@ public class BallStory {
         Wolf wolf = new Wolf();
         Fox fox = new Fox();
 
-        //жил-был колобок и решил он пойти в лес
-        //встретил в лесу зайца, тот попытался съесть его, колобок убежал
         hare.tryEat(kolobok);
         kolobok.run();
-        //встретил в лесу волка, тот попытался съесть его, колобок убежал
         wolf.tryEat(kolobok);
         kolobok.run();
-        //встретил в лесу лису, та попыталась съесть его, колобок убежал
         fox.tryEat(kolobok);
         kolobok.run();
-        //вот и сказке конец
     }
 }

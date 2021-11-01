@@ -13,15 +13,12 @@ package ru.job4j.oop;
  */
 
 public class Battery {
-    //1. Параметры:
     private int load;
 
-    //2. Конструкторы:
     public Battery(int size) {
         this.load = size;
     }
 
-    //3. Методы
     public void exchange(Battery another) {
         another.load = another.load + this.load;
         this.load = 0;

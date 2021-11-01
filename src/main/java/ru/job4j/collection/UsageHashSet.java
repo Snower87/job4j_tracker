@@ -11,8 +11,6 @@ import java.util.HashSet;
 
 public class UsageHashSet {
     public void addNames() {
-        //Особенность коллекций java.util.Set является сохранение только уникальных элементов,
-        //не добавляют дублирующие элементы.
         HashSet<String> names = new HashSet<>();
 
         names.add("Petr");
@@ -20,14 +18,12 @@ public class UsageHashSet {
         names.add("Ivan");
         names.add("Sergei");
 
-        //Вывод на консоль через for и String
         System.out.println();
         System.out.println("Вывод на консоль через for и String");
         for (String name: names) {
             System.out.println(name);
         }
 
-        //Вывод на консоль через объект Object
         System.out.println();
         System.out.println("Вывод на консоль через объект Object");
         for (Object obj: names) {
@@ -48,8 +44,6 @@ public class UsageHashSet {
     }
 
     public static void main(String[] args) {
-        //UsageHashSet name = new UsageHashSet();
-        //name.addNames();
 
         UsageHashSet auto = new UsageHashSet();
         auto.addAuto();
