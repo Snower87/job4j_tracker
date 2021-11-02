@@ -2,10 +2,10 @@ package ru.job4j.stream;
 
 /**
  * Класс Car пример создания класса через паттерн строитель (builder)
- * 1) создание класса (#126) 2) убрал поле brand из класса (#131)
+ * 1) создание класса (#126) 2) убрал поле brand из класса (#131) 3) изменил метод buildCosts (#137)
  * @author Sergei Begletsov
  * @since 12.09.2021
- * @version 2
+ * @version 3
  */
 
 public class Car {
@@ -45,7 +45,7 @@ public class Car {
         }
 
         Builder buildCosts(double costs) {
-            this.costs += costs;
+            this.costs = costs;
             return this;
         }
 
