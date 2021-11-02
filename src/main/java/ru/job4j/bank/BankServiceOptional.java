@@ -1,9 +1,6 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  /* Класс BankService реализует банковский сервис 1) добавление функционала (#92)
@@ -11,9 +8,10 @@ import java.util.Map;
  * 3) в методе addAccount() добавил проверку существования пользователя, убрал users.put(user, userAccountAll); (#94)
  * тк account уже добавлен к счетам пользователя, в методе transferMoney() поменял булеву логику с ИЛИ (||) на И (&&)
  * 4) передедал методы поиска по паспорту и реквизитам на использование Stream API (#124)
+ * 5) передедал методы поиска, используя Optional (#141)
  * @author Sergei Begletsov
  * @since 14.08.2021
- * @version 4
+ * @version 5
  */
 
 public class BankServiceOptional {
@@ -36,13 +34,12 @@ public class BankServiceOptional {
      * @param account новый счет пользователя
      */
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
+        Optional<User> user = findByPassport(passport);
 
-        if (user != null) {
-            List<Account> listAccountsUser = users.get(user);
+        if (user.isPresent()) {
+            List<Account> listAccountsUser = users.get(user.get());
 
             if (listAccountsUser != null) {
-
                 if (!listAccountsUser.contains(account)) {
                     listAccountsUser.add(account);
                 }
@@ -55,11 +52,10 @@ public class BankServiceOptional {
      * @param passport паспорт пользователя
      * @return пользователя User при успешном поиске, null - если пользователя не нашли
      */
-    public User findByPassport(String passport) {
+    public Optional<User> findByPassport(String passport) {
         return users.keySet().stream()
                 .filter(user -> user.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     /**
@@ -68,19 +64,18 @@ public class BankServiceOptional {
      * @param requisite счет пользователя
      * @return аккаунт Account пользователя, если поиск по реквизитам прошел успешно, если нет - null
      */
-    public Account findByRequisite(String passport, String requisite) {
-        User findUser = findByPassport(passport);
+    public Optional<Account> findByRequisite(String passport, String requisite) {
+        Optional<User> findUser = findByPassport(passport);
 
-        if (findUser != null) {
-            List<Account> listAccountsUser = users.get(findUser);
+        if (findUser.isPresent()) {
+            List<Account> listAccountsUser = users.get(findUser.get());
 
             return listAccountsUser.stream()
                     .filter(account -> account.getRequisite().equals(requisite))
-                    .findFirst()
-                    .get();
+                    .findFirst();
         }
 
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -95,12 +90,12 @@ public class BankServiceOptional {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        Account accountFrom = findByRequisite(srcPassport, srcRequisite);
-        Account accountTo   = findByRequisite(destPassport, destRequisite);
+        Optional<Account> accountFrom = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> accountTo   = findByRequisite(destPassport, destRequisite);
 
-        if (accountFrom != null && accountTo != null && accountFrom.getBalance() >= amount) {
-            accountFrom.setBalance(accountFrom.getBalance() - amount);
-            accountTo.setBalance(accountTo.getBalance() + amount);
+        if (accountFrom.isPresent() && accountTo.isPresent() && accountFrom.get().getBalance() >= amount) {
+            accountFrom.get().setBalance(accountFrom.get().getBalance() - amount);
+            accountTo.get().setBalance(accountTo.get().getBalance() + amount);
             rsl = true;
         }
 
