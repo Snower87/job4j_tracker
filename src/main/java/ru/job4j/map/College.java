@@ -7,10 +7,10 @@ import java.util.Set;
 /**
  * Класс-сервис College
  * 1) создание класса (#124) 2) добавил методы findByAccount, findBySubjectName, реализовав их через
- * оболочку Optional, чтобы избавиться от ошибки NPE (#139)
+ * оболочку Optional, чтобы избавиться от ошибки NPE (#139) 3) удалил старые методы (#142)
  * @author Sergei Begletsov
  * @since 07.09.2021
- * @version 2
+ * @version 3
  */
 
 public class College {
@@ -18,35 +18,6 @@ public class College {
 
     public College(Map<Student, Set<Subject>> students) {
         this.students = students;
-    }
-
-    /**
-     * Поиска студента по аккаунту
-     * @param account аккаунт студента
-     * @return возвращает найденного студента или null
-     */
-    public Student findByAccount1(String account) {
-        return students.keySet().stream()
-                .filter(student -> student.getAccount().equals(account))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Поиск предмета по аккаунту и имени предмета
-     * @param account аккаунт студента
-     * @param name имени предмета
-     * @return возвращает найденного предмет или null
-     */
-    public Subject findBySubjectName1(String account, String name) {
-        Student a = findByAccount1(account);
-        if (a != null) {
-            return students.get(a).stream()
-                    .filter(subject -> subject.getName().equals(name))
-                    .findFirst()
-                    .orElse(null);
-        }
-        return null;
     }
 
     /**
@@ -84,19 +55,5 @@ public class College {
             }
         }
         return rsl;
-    }
-
-    public static void main(String[] args) {
-        Map<Student, Set<Subject>> students = Map.of(new Student("Student", "000001", "201-18-15"),
-                Set.of(
-                        new Subject("Math", 70),
-                        new Subject("English", 85)
-                )
-        );
-        College college = new College(students);
-        Student student = college.findByAccount1("000001");
-        System.out.println("Найденный студент: " + student);
-        Subject english = college.findBySubjectName1("000001", "English");
-        System.out.println("Оценка по найденному предмету: " + english.getScore());
     }
 }
