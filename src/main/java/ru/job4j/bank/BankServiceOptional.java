@@ -8,7 +8,7 @@ import java.util.*;
  * 3) в методе addAccount() добавил проверку существования пользователя, убрал users.put(user, userAccountAll); (#94)
  * тк account уже добавлен к счетам пользователя, в методе transferMoney() поменял булеву логику с ИЛИ (||) на И (&&)
  * 4) передедал методы поиска по паспорту и реквизитам на использование Stream API (#124)
- * 5) передедал методы поиска, используя Optional (#141)
+ * 5) передедал методы поиска, используя Optional (#141) 6) удалил проверку из метода addAccount()
  * @author Sergei Begletsov
  * @since 14.08.2021
  * @version 5
@@ -39,11 +39,9 @@ public class BankServiceOptional {
         if (user.isPresent()) {
             List<Account> listAccountsUser = users.get(user.get());
 
-            if (listAccountsUser != null) {
                 if (!listAccountsUser.contains(account)) {
                     listAccountsUser.add(account);
                 }
-            }
         }
     }
 
