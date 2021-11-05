@@ -3,15 +3,10 @@ package ru.job4j.bank;
 import java.util.*;
 
 /**
- /* Класс BankService реализует банковский сервис 1) добавление функционала (#92)
- * 2) подчислил код в методах: addUser(), addAccount(), findByRequisite(), transferMoney() (#93)
- * 3) в методе addAccount() добавил проверку существования пользователя, убрал users.put(user, userAccountAll); (#94)
- * тк account уже добавлен к счетам пользователя, в методе transferMoney() поменял булеву логику с ИЛИ (||) на И (&&)
- * 4) передедал методы поиска по паспорту и реквизитам на использование Stream API (#124)
- * 5) передедал методы поиска, используя Optional (#141) 6) удалил проверку из метода addAccount()
+ /* Класс BankServiceOptional реализует банковский сервис
  * @author Sergei Begletsov
  * @since 14.08.2021
- * @version 5
+ * @version 6
  */
 
 public class BankServiceOptional {
